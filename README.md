@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Design
+
+Open the project design on this [Figma](<https://www.figma.com/design/jceF3sntUfbheyPyJA5HG1/Venus---Dashboard-Builder-2021-(Free-Version)-(Community)?node-id=458-1609&t=YQLfRjmREZiT9uZm-0>)
+
 ## Getting Started
 
 First, run the development server:

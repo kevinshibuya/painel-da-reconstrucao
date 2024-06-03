@@ -1,0 +1,17 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, var(--small-col)));
+  gap: 20px;
+
+  .main_highlight,
+  .sub_highlight {
+    .segment_title {
+      font-weight: 500;
+      color: var(--gray-100);
+    }
+    
+    .general_value {
+      color: var(--gray-100);
+    }
+  }
+}

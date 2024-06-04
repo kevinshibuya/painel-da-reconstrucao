@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+
 import "./globals.scss";
+
 import Sidemenu from "@/components/sidemenu/Sidemenu";
 import Header from "@/components/header/Header";
 import GlobalNumbers from "@/components/globalNumbers/GlobalNumbers";
+import { Providers } from "./providers";
 
 const poppins = Poppins({
   weight: ["400", "500", "700"],
@@ -28,14 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <div id="app">
-          <Sidemenu />
-          <main>
-            <Header />
-            <GlobalNumbers />
-            {children}
-          </main>
-        </div>
+        <Providers>
+          <div id="app">
+            <Sidemenu />
+            <main>
+              <Header />
+              <GlobalNumbers />
+              {children}
+            </main>
+          </div>
+        </Providers>
       </body>
     </html>
   );

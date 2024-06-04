@@ -71,18 +71,18 @@ export default function Transfers() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_474_3358)">
+            <g clipPath="url(#clip0_474_3358)">
               <path
                 d="M0.5 7L13.5 7"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M10 10.5L13.5 7L10 3.5"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
@@ -162,18 +162,18 @@ export default function Transfers() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_474_3358)">
+            <g clipPath="url(#clip0_474_3358)">
               <path
                 d="M0.5 7L13.5 7"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M10 10.5L13.5 7L10 3.5"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
@@ -253,18 +253,18 @@ export default function Transfers() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_474_3358)">
+            <g clipPath="url(#clip0_474_3358)">
               <path
                 d="M0.5 7L13.5 7"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M10 10.5L13.5 7L10 3.5"
                 stroke="#FACA16"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>

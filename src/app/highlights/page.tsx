@@ -137,12 +137,49 @@ export default function Highlights() {
               <h1 className="caption_value">R$ 114.010.006,59</h1>
             </div>
           </div>
-          <div className="canvas_wrapper">
+          <div className={styles.canvas_wrapper}>
             <Doughnut data={data} options={options} />
           </div>
         </div>
       </div>
-      <div className="content_block"></div>
+      <div className="content_block_vertical_wrapper">
+        <div className="content_block icon_block" id="actualInvestment">
+          <Image
+            src="/icons/money_icon.svg"
+            alt="Ícone dinheiro"
+            width={56}
+            height={56}
+          />
+          <div className="content_icon_block_wrapper">
+            <h1 className="segment_title">Porto alegre</h1>
+            <p className="general_value">R$ 20 bi</p>
+          </div>
+        </div>
+        <div className="content_block icon_block" id="actualInvestment">
+          <Image
+            src="/icons/money_icon.svg"
+            alt="Ícone dinheiro"
+            width={56}
+            height={56}
+          />
+          <div className="content_icon_block_wrapper">
+            <h1 className="segment_title">Canoas</h1>
+            <p className="general_value">R$ 12 bi</p>
+          </div>
+        </div>
+        <div className="content_block icon_block" id="actualInvestment">
+          <Image
+            src="/icons/money_icon.svg"
+            alt="Ícone dinheiro"
+            width={56}
+            height={56}
+          />
+          <div className="content_icon_block_wrapper">
+            <h1 className="segment_title">Roca Sales</h1>
+            <p className="general_value">R$ 5 bi</p>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

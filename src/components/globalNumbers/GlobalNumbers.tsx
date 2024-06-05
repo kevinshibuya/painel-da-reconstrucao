@@ -8,29 +8,17 @@ import { useEffect } from "react";
 import CountUp from "react-countup";
 
 export default function GlobalNumbers() {
-  const [data, setData, globalNumbers, setGlobalNumbers] = useDataContext();
-  const options = {
-    startVal: 1,
-    duration: 1,
-    separator: ".",
-    decimal: ",",
-    prefix: "R$",
-    suffix: "bi",
-  };
-  useEffect(() => {
-    if (globalNumbers.federal) {
-      console.log(globalNumbers);
-    }
-  }, [globalNumbers]);
+  const { globalNumbers } = useDataContext();
+  const [globalNumbersValue, setGlobalNumbersValue] = globalNumbers;
 
   return (
     <header className={styles.container}>
       <div className="content_block" id="federalInvestment">
-        <h1 className="segment_title">Investimento Federal</h1>
-        {globalNumbers.federal ? (
+        <h1 className="segment_title">Anúncios do Governo Federal</h1>
+        {globalNumbersValue.federal ? (
           <CountUp
             start={0}
-            end={globalNumbers.federal ? globalNumbers.federal : 0.0}
+            end={globalNumbersValue.federal ? globalNumbersValue.federal : 0.0}
             duration={1}
             separator="."
             decimal=","
@@ -46,11 +34,13 @@ export default function GlobalNumbers() {
         )}
       </div>
       <div className="content_block" id="stateInvestment">
-        <h1 className="segment_title">Investimento Estadual</h1>
-        {globalNumbers.estadual ? (
+        <h1 className="segment_title">Anúncios do Governo Estadual</h1>
+        {globalNumbersValue.estadual ? (
           <CountUp
             start={0}
-            end={globalNumbers.estadual ? globalNumbers.estadual : 0.0}
+            end={
+              globalNumbersValue.estadual ? globalNumbersValue.estadual : 0.0
+            }
             duration={1}
             separator="."
             decimal=","
@@ -77,10 +67,12 @@ export default function GlobalNumbers() {
         />
         <div className="content_icon_block_wrapper">
           <h1 className="segment_title">Repasses totais</h1>
-          {globalNumbers.repasses ? (
+          {globalNumbersValue.repasses ? (
             <CountUp
               start={0}
-              end={globalNumbers.repasses ? globalNumbers.repasses : 0.0}
+              end={
+                globalNumbersValue.repasses ? globalNumbersValue.repasses : 0.0
+              }
               duration={1}
               separator="."
               decimal=","
@@ -107,11 +99,15 @@ export default function GlobalNumbers() {
           height={56}
         />
         <div className="content_icon_block_wrapper">
-          <h1 className="segment_title">Valor investido</h1>
-          {globalNumbers.investido ? (
+          <h1 className="segment_title">Valor pago</h1>
+          {globalNumbersValue.investido ? (
             <CountUp
               start={0}
-              end={globalNumbers.investido ? globalNumbers.investido : 0.0}
+              end={
+                globalNumbersValue.investido
+                  ? globalNumbersValue.investido
+                  : 0.0
+              }
               duration={1}
               separator="."
               decimal=","

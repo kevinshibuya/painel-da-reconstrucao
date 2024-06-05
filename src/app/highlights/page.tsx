@@ -11,19 +11,36 @@ import {
 } from "@nextui-org/react";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { useDataContext } from "@/context/dados";
 
 import styles from "./page.module.scss";
+import CountUp from "react-countup";
 
 // Register ChartJS components using ChartJS.register
 ChartJS.register(ArcElement, Tooltip);
 
 export default function Highlights() {
+  const { generalInvestment } = useDataContext();
+  const [generalInvestmentValue, setGeneralInvestmentValue] = generalInvestment;
+  useEffect(() => {
+    console.log(generalInvestmentValue);
+  }, [generalInvestmentValue]);
   const data = {
-    labels: ["a", "b", "c", "d"],
+    labels: [
+      "Valor anunciado",
+      "Valor empenhado",
+      "Valor liquidado",
+      "Valor pago",
+    ],
     datasets: [
       {
-        label: "Tipos",
-        data: [20, 5, 40, 35],
+        label: "Valor",
+        data: [
+          Math.round(generalInvestmentValue.anunciado * 100) / 100,
+          Math.round(generalInvestmentValue.empenhado * 100) / 100,
+          Math.round(generalInvestmentValue.liquidado * 100) / 100,
+          Math.round(generalInvestmentValue.pago * 100) / 100,
+        ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
         hoverOffset: 4,
       },
@@ -34,13 +51,24 @@ export default function Highlights() {
     rotation: -90,
     circumference: 180,
     maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || "";
+            console.log(context.dataset);
+            return `R$ ${label}`;
+          },
+        },
+      },
+    },
   };
 
   return (
     <main className={styles.container}>
       <div className="content_block main_highlight">
         <div className="content_title_wrapper">
-          <h1 className="big_section_title">Valores totais investidos</h1>
+          <h1 className="big_section_title">Valores totais</h1>
           <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>
               <Button variant="bordered" className={styles.dropdown_container}>
@@ -110,7 +138,27 @@ export default function Highlights() {
                 <h1>Valor anunciado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              <h1 className="caption_value">R$ 14.007.700.334,00</h1>
+              {generalInvestmentValue.anunciado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    generalInvestmentValue.anunciado
+                      ? generalInvestmentValue.anunciado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
             </div>
             <div className="caption_wrapper comitted_value">
               <div className="caption_title">
@@ -118,7 +166,27 @@ export default function Highlights() {
                 <h1>Valor empenhado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              <h1 className="caption_value">R$ 264.735.884,74</h1>
+              {generalInvestmentValue.empenhado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    generalInvestmentValue.empenhado
+                      ? generalInvestmentValue.empenhado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
             </div>
             <div className="caption_wrapper settled_value">
               <div className="caption_title">
@@ -126,7 +194,27 @@ export default function Highlights() {
                 <h1>Valor liquidado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              <h1 className="caption_value">R$ 120.086.420,48</h1>
+              {generalInvestmentValue.liquidado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    generalInvestmentValue.liquidado
+                      ? generalInvestmentValue.liquidado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
             </div>
             <div className="caption_wrapper paid_value">
               <div className="caption_title">
@@ -134,49 +222,31 @@ export default function Highlights() {
                 <h1>Valor pago</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              <h1 className="caption_value">R$ 114.010.006,59</h1>
+              {generalInvestmentValue.pago ? (
+                <CountUp
+                  start={0}
+                  end={
+                    generalInvestmentValue.pago
+                      ? generalInvestmentValue.pago
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
             </div>
           </div>
           <div className={styles.canvas_wrapper}>
             <Doughnut data={data} options={options} />
-          </div>
-        </div>
-      </div>
-      <div className="content_block_vertical_wrapper">
-        <div className="content_block icon_block" id="actualInvestment">
-          <Image
-            src="/icons/money_icon.svg"
-            alt="Ícone dinheiro"
-            width={56}
-            height={56}
-          />
-          <div className="content_icon_block_wrapper">
-            <h1 className="segment_title">Porto alegre</h1>
-            <p className="general_value">R$ 20 bi</p>
-          </div>
-        </div>
-        <div className="content_block icon_block" id="actualInvestment">
-          <Image
-            src="/icons/money_icon.svg"
-            alt="Ícone dinheiro"
-            width={56}
-            height={56}
-          />
-          <div className="content_icon_block_wrapper">
-            <h1 className="segment_title">Canoas</h1>
-            <p className="general_value">R$ 12 bi</p>
-          </div>
-        </div>
-        <div className="content_block icon_block" id="actualInvestment">
-          <Image
-            src="/icons/money_icon.svg"
-            alt="Ícone dinheiro"
-            width={56}
-            height={56}
-          />
-          <div className="content_icon_block_wrapper">
-            <h1 className="segment_title">Roca Sales</h1>
-            <p className="general_value">R$ 5 bi</p>
           </div>
         </div>
       </div>

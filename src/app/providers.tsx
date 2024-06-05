@@ -12,7 +12,8 @@ export interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   const router = useRouter();
-  const [data, setData] = useDataContext();
+  const { data } = useDataContext();
+  const [dataValue, setDataValue] = data;
 
   useEffect(() => {
     let responses = { detalhamentos: [], geral: [] };
@@ -24,7 +25,7 @@ export function Providers({ children }: ProvidersProps) {
         fetch("data/geral.json")
           .then((res) => res.json())
           .then((res) => (responses.geral = res))
-          .then(() => setData(responses))
+          .then(() => setDataValue(responses))
       );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

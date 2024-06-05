@@ -13,8 +13,8 @@ export default function GlobalNumbers() {
 
   return (
     <header className={styles.container}>
-      <div className="content_block" id="federalInvestment">
-        <h1 className="segment_title">Anúncios do Governo Federal</h1>
+      <div className="content_block federal_highlight" id="federalInvestment">
+        <h1 className="segment_title">Investimento Federal</h1>
         {globalNumbersValue.federal ? (
           <CountUp
             start={0}
@@ -23,18 +23,18 @@ export default function GlobalNumbers() {
             separator="."
             decimal=","
             prefix="R$ "
-            suffix=" bi"
+            suffix=" bilhões"
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
             )}
           </CountUp>
         ) : (
-          <p className="general_value">R$ 0 bi</p>
+          <p className="general_value">R$ 0 bilhões</p>
         )}
       </div>
-      <div className="content_block" id="stateInvestment">
-        <h1 className="segment_title">Anúncios do Governo Estadual</h1>
+      <div className="content_block estadual_highlight" id="stateInvestment">
+        <h1 className="segment_title">Investimento Estadual</h1>
         {globalNumbersValue.estadual ? (
           <CountUp
             start={0}
@@ -45,14 +45,14 @@ export default function GlobalNumbers() {
             separator="."
             decimal=","
             prefix="R$ "
-            suffix=" mi"
+            suffix=" milhões"
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
             )}
           </CountUp>
         ) : (
-          <p className="general_value">R$ 0 mi</p>
+          <p className="general_value">R$ 0 milhões</p>
         )}
       </div>
       <div
@@ -66,7 +66,7 @@ export default function GlobalNumbers() {
           height={56}
         />
         <div className="content_icon_block_wrapper">
-          <h1 className="segment_title">Repasses totais</h1>
+          <h1 className="segment_title">Total investido</h1>
           {globalNumbersValue.repasses ? (
             <CountUp
               start={0}
@@ -77,14 +77,14 @@ export default function GlobalNumbers() {
               separator="."
               decimal=","
               prefix="R$ "
-              suffix=" bi"
+              suffix=" bilhões"
             >
               {({ countUpRef }) => (
                 <span ref={countUpRef} className="general_value" />
               )}
             </CountUp>
           ) : (
-            <p className="general_value">R$ 0 bi</p>
+            <p className="general_value">R$ 0 bilhões</p>
           )}
         </div>
       </div>
@@ -99,7 +99,7 @@ export default function GlobalNumbers() {
           height={56}
         />
         <div className="content_icon_block_wrapper">
-          <h1 className="segment_title">Valor pago</h1>
+          <h1 className="segment_title">Total pago</h1>
           {globalNumbersValue.investido ? (
             <CountUp
               start={0}
@@ -112,14 +112,14 @@ export default function GlobalNumbers() {
               separator="."
               decimal=","
               prefix="R$ "
-              suffix=" mi"
+              suffix=" milhões"
             >
               {({ countUpRef }) => (
                 <span ref={countUpRef} className="general_value" />
               )}
             </CountUp>
           ) : (
-            <p className="general_value">R$ 0 mi</p>
+            <p className="general_value">R$ 0 milhões</p>
           )}
         </div>
       </div>

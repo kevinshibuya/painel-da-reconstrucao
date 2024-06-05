@@ -15,7 +15,6 @@ export default function Header() {
           height={52}
         />
         <div className={styles.header_text}>
-          <p>Especial</p>
           <h1>Painel da reconstrução</h1>
         </div>
       </div>

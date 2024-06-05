@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const DataContext = createContext({} as any);
 
-const getUniquePropertyValues = (
+export const getUniquePropertyValues = (
   array: any[],
   uniqueProp: string,
   valueProp: string
@@ -44,6 +44,18 @@ export function DataProvider({ children }: any) {
     liquidado: number;
     pago: number;
   }>({} as any);
+  const [federalInvestment, setFederalInvestment] = useState<{
+    anunciado: number;
+    empenhado: number;
+    liquidado: number;
+    pago: number;
+  }>({} as any);
+  const [estadualInvestment, setEstadualInvestment] = useState<{
+    anunciado: number;
+    empenhado: number;
+    liquidado: number;
+    pago: number;
+  }>({} as any);
 
   useEffect(() => {
     if ((data as any).geral) {
@@ -57,7 +69,6 @@ export function DataProvider({ children }: any) {
         "FASE",
         "VALOR"
       );
-      console.log(generalInvestment);
 
       setGlobalNumbers({
         federal: uniqueNames[0]?.["VALOR ANUNCIADO"] / 1000000000 || 0,
@@ -77,6 +88,18 @@ export function DataProvider({ children }: any) {
         liquidado: generalInvestment[1]?.["VALOR"],
         pago: generalInvestment[2]?.["VALOR"],
       });
+      setFederalInvestment({
+        anunciado: uniqueNames[0]?.["VALOR ANUNCIADO"],
+        empenhado: generalInvestment[0]?.["VALOR"],
+        liquidado: generalInvestment[1]?.["VALOR"],
+        pago: generalInvestment[2]?.["VALOR"],
+      });
+      setEstadualInvestment({
+        anunciado: uniqueNames[1]?.["VALOR ANUNCIADO"],
+        empenhado: generalInvestment[0]?.["VALOR"],
+        liquidado: generalInvestment[1]?.["VALOR"],
+        pago: generalInvestment[2]?.["VALOR"],
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [(data as any).geral]);
@@ -87,6 +110,8 @@ export function DataProvider({ children }: any) {
         data: [data, setData],
         globalNumbers: [globalNumbers, setGlobalNumbers],
         generalInvestment: [generalInvestment, setGeneralInvestment],
+        federalInvestment: [federalInvestment, setFederalInvestment],
+        estadualInvestment: [estadualInvestment, setEstadualInvestment],
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { useEffect, useState } from "react";
 
 import "./globals.scss";
 
@@ -7,6 +8,7 @@ import Sidemenu from "@/components/sidemenu/Sidemenu";
 import Header from "@/components/header/Header";
 import GlobalNumbers from "@/components/globalNumbers/GlobalNumbers";
 import { Providers } from "./providers";
+import { DataProvider } from "@/context/dados";
 
 const poppins = Poppins({
   weight: ["400", "500", "700"],
@@ -31,16 +33,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Providers>
-          <div id="app">
-            <Sidemenu />
-            <main>
-              <Header />
-              <GlobalNumbers />
-              {children}
-            </main>
-          </div>
-        </Providers>
+        <DataProvider>
+          <Providers>
+            <div id="app">
+              <Sidemenu />
+              <main>
+                <Header />
+                <GlobalNumbers />
+                {children}
+              </main>
+            </div>
+          </Providers>
+        </DataProvider>
       </body>
     </html>
   );

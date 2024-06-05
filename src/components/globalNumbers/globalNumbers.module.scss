@@ -3,3 +3,7 @@
   grid-template-columns: repeat(4, minmax(0, var(--small-col)));
   gap: 20px;
 }
+
+.content_block.icon_block {
+  align-items: center;
+}

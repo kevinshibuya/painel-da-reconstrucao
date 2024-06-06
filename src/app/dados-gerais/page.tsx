@@ -9,17 +9,24 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import { getUniquePropertyValues, useDataContext } from "@/context/dados";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+} from "chart.js";
+import { Doughnut, Bar } from "react-chartjs-2";
+import CountUp from "react-countup";
+import { useDataContext } from "@/context/dados";
 
 import styles from "./page.module.scss";
-import CountUp from "react-countup";
 
 // Register ChartJS components using ChartJS.register
-ChartJS.register(ArcElement, Tooltip);
+ChartJS.register(ArcElement, Tooltip, LinearScale, CategoryScale, BarElement);
 
-export default function Highlights() {
+export default function DadosGerais() {
   const { data, generalInvestment, federalInvestment, estadualInvestment } =
     useDataContext();
   const [generalInvestmentValue, setGeneralInvestmentValue] = generalInvestment;
@@ -45,6 +52,7 @@ export default function Highlights() {
           Math.round(federalInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         hoverOffset: 4,
       },
     ],
@@ -67,6 +75,7 @@ export default function Highlights() {
           Math.round(estadualInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         hoverOffset: 4,
       },
     ],
@@ -89,7 +98,37 @@ export default function Highlights() {
           Math.round(generalInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         hoverOffset: 4,
+      },
+    ],
+  };
+
+  const dataBarFederal = {
+    labels: [""],
+    datasets: [
+      {
+        label: "currentAmount",
+        data: [20000],
+        backgroundColor: "blue",
+        borderRadius: { topLeft: 10, bottomLeft: 10 },
+        borderSkipped: "end",
+      },
+      {
+        label: "amount 1",
+        data: [30000],
+        backgroundColor: "orange",
+      },
+      {
+        label: "amount 2",
+        data: [15000],
+        backgroundColor: "green",
+      },
+      {
+        label: "remaining",
+        data: [25000],
+        backgroundColor: "yellow",
+        borderRadius: 10,
       },
     ],
   };
@@ -102,12 +141,32 @@ export default function Highlights() {
     maintainAspectRatio: false,
   };
 
+  const barOptions = {
+    indexAxis: "y",
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        display: false,
+        stacked: true,
+      },
+      x: {
+        display: false,
+        stacked: true,
+      },
+    },
+    maintainAspectRatio: false,
+  };
+
   return (
     <main className={styles.container}>
       <div className="content_block federal_highlight">
         <div className="content_title_wrapper">
           <h1 className="big_section_title">Federal</h1>
-          <Dropdown shouldBlockScroll={false}>
+          {/* <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>
               <Button variant="bordered" className={styles.dropdown_container}>
                 Ver por segmento
@@ -166,14 +225,14 @@ export default function Highlights() {
                 Transportes
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
         <div className="content_wrapper">
           <div className="captions_container">
             <div className="caption_wrapper advertised_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
-                <h1>Anunciado</h1>
+                <h1>Valor anunciado</h1>
                 <div className="caption_tooltip"></div>
               </div>
               {generalInvestmentValue.anunciado ? (
@@ -287,11 +346,33 @@ export default function Highlights() {
             <Doughnut data={dataFederal} options={options} />
           </div>
         </div>
+        <h1 className="bar_title section_title">Divisão dos valores</h1>
+        <div className={styles.bar_wrapper}>
+          <Bar options={barOptions} data={dataBarFederal} />
+        </div>
+        <div className="bar_labels_container">
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Linhas de crédito</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Atrasos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Novos recursos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Antecipação de benefícios</p>
+          </div>
+        </div>
       </div>
       <div className="content_block estadual_highlight">
         <div className="content_title_wrapper">
           <h1 className="big_section_title">Estadual</h1>
-          <Dropdown shouldBlockScroll={false}>
+          {/* <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>
               <Button variant="bordered" className={styles.dropdown_container}>
                 Ver por segmento
@@ -350,14 +431,14 @@ export default function Highlights() {
                 Transportes
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
         <div className="content_wrapper">
           <div className="captions_container">
             <div className="caption_wrapper advertised_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
-                <h1>Totais direcionados</h1>
+                <h1>Valor anunciado</h1>
                 <div className="caption_tooltip"></div>
               </div>
               {generalInvestmentValue.anunciado ? (
@@ -471,11 +552,33 @@ export default function Highlights() {
             <Doughnut data={dataEstadual} options={options} />
           </div>
         </div>
+        <h1 className="bar_title section_title">Divisão dos valores</h1>
+        <div className={styles.bar_wrapper}>
+          <Bar options={barOptions} data={dataBarFederal} />
+        </div>
+        <div className="bar_labels_container">
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Linhas de crédito</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Atrasos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Novos recursos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Antecipação de benefícios</p>
+          </div>
+        </div>
       </div>
       <div className="content_block">
         <div className="content_title_wrapper">
           <h1 className="big_section_title">Total</h1>
-          <Dropdown shouldBlockScroll={false}>
+          {/* <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>
               <Button variant="bordered" className={styles.dropdown_container}>
                 Ver por segmento
@@ -534,7 +637,7 @@ export default function Highlights() {
                 Transportes
               </DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
         <div className="content_wrapper">
           <div className="captions_container">
@@ -653,6 +756,28 @@ export default function Highlights() {
           </div>
           <div className={styles.canvas_wrapper}>
             <Doughnut data={dataGeral} options={options} />
+          </div>
+        </div>
+        <h1 className="bar_title section_title">Divisão dos valores</h1>
+        <div className={styles.bar_wrapper}>
+          <Bar options={barOptions} data={dataBarFederal} />
+        </div>
+        <div className="bar_labels_container">
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Linhas de crédito</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Atrasos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Novos recursos</p>
+          </div>
+          <div className="bar_label_wrapper">
+            <div className="bar_label_color"></div>
+            <p className="bar_label">Antecipação de benefícios</p>
           </div>
         </div>
       </div>

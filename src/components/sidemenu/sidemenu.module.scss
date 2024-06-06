@@ -1,7 +1,7 @@
 .container {
   width: 290px;
+  min-width: 290px;
   min-height: 100vh;
-  min-width: fit-content;
   background-color: var(--gray-600);
 
   header {

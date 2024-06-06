@@ -34,7 +34,7 @@ export default function Sidemenu() {
         />
       </header>
       <nav>
-        <Link href="/destaques">
+        <Link href="/dados-gerais">
           <svg
             width="24"
             height="24"
@@ -54,9 +54,9 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Destaque
+          Dados gerais
         </Link>
-        <Link href="/transfers">
+        <Link href="/caminho-dinheiro">
           <svg
             width="24"
             height="24"
@@ -76,9 +76,9 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Repasses
+          Caminho do dinheiro
         </Link>
-        <Link href="/projects">
+        <Link href="/como-funciona">
           <svg
             width="24"
             height="24"
@@ -98,9 +98,9 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Apresentação do painel
+          Como funciona o painel
         </Link>
-        <Link href="/initiatives">
+        <Link href="/entenda-termos">
           <svg
             width="24"
             height="24"
@@ -113,9 +113,9 @@ export default function Sidemenu() {
               fill="#ADADAD"
             />
           </svg>
-          Entenda os anúncios
+          Entenda os termos utilizados
         </Link>
-        <Link href="/glossario">
+        <Link href="/entenda-medidas">
           <svg
             width="24"
             height="24"
@@ -135,7 +135,73 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Glossário
+          Entenda as medidas anunciadas
+        </Link>
+        <Link href="/auxilios-cidadao">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_517_280)">
+              <path
+                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
+                fill="#ADADAD"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_517_280">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          Como cidadãos solicitam auxílios
+        </Link>
+        <Link href="/estado-recursos">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_517_280)">
+              <path
+                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
+                fill="#ADADAD"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_517_280">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          Como Estado e prefeituras acessam recursos
+        </Link>
+        <Link href="/empresas-beneficios">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_517_280)">
+              <path
+                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
+                fill="#ADADAD"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_517_280">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          Como empresas solicitam benefícios
         </Link>
         <Link href="/calendar">
           <svg
@@ -157,8 +223,15 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Como acessar os recursos
+          Leia mais sobre reconstrução do RS
         </Link>
+
+        <Image
+          src="/logo_pracimars.svg"
+          alt="Logo Painel da reconstrução"
+          width={230}
+          height={44}
+        />
       </nav>
     </aside>
   );

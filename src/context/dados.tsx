@@ -8,12 +8,15 @@ const DataContext = createContext({} as any);
 export const getUniquePropertyValues = (
   array: any[],
   uniqueProp: string,
-  valueProp: string
+  valueProp: string,
+  additionalUniqueProp?: string
 ) => {
   const propertyMap = new Map();
 
   array.forEach((item) => {
-    const uniqueKey = item[uniqueProp];
+    const uniqueKey = additionalUniqueProp
+      ? `${item[uniqueProp]}-${item[additionalUniqueProp]}`
+      : item[uniqueProp];
     const value = item[valueProp];
 
     if (propertyMap.has(uniqueKey)) {
@@ -23,9 +26,16 @@ export const getUniquePropertyValues = (
     }
   });
 
-  const uniqueValues = Array.from(propertyMap.entries()).map(
-    ([key, value]) => ({ [uniqueProp]: key, [valueProp]: value })
-  );
+  const uniqueValues = Array.from(propertyMap.entries()).map(([key, value]) => {
+    const keys = key.split("-");
+    return additionalUniqueProp
+      ? {
+          [uniqueProp]: keys[0],
+          [additionalUniqueProp]: keys[1],
+          [valueProp]: value,
+        }
+      : { [uniqueProp]: key, [valueProp]: value };
+  });
 
   return uniqueValues;
 };
@@ -69,6 +79,13 @@ export function DataProvider({ children }: any) {
         "FASE",
         "VALOR"
       );
+      const uniqueTypes = getUniquePropertyValues(
+        (data as any).geral,
+        "GOVERNO",
+        "VALOR ANUNCIADO",
+        "TIPO"
+      );
+      console.log(uniqueTypes);
 
       setGlobalNumbers({
         federal: uniqueNames[0]?.["VALOR ANUNCIADO"] / 1000000000 || 0,

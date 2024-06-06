@@ -69,11 +69,27 @@ export function DataProvider({ children }: any) {
 
   useEffect(() => {
     if ((data as any).geral) {
-      const uniqueNames = getUniquePropertyValues(
+      const uniqueGovAnunciado = getUniquePropertyValues(
         (data as any).geral,
-        "GOVERNO",
-        "VALOR ANUNCIADO"
+        "governo",
+        "anunciado"
       );
+      const uniqueGovEmpenhado = getUniquePropertyValues(
+        (data as any).geral,
+        "governo",
+        "empenhado"
+      );
+      const uniqueGovLiquidado = getUniquePropertyValues(
+        (data as any).geral,
+        "governo",
+        "liquidado"
+      );
+      const uniqueGovPago = getUniquePropertyValues(
+        (data as any).geral,
+        "governo",
+        "pago"
+      );
+
       const generalInvestment = getUniquePropertyValues(
         (data as any).detalhamentos,
         "FASE",
@@ -81,41 +97,45 @@ export function DataProvider({ children }: any) {
       );
       const uniqueTypes = getUniquePropertyValues(
         (data as any).geral,
-        "GOVERNO",
-        "VALOR ANUNCIADO",
-        "TIPO"
+        "governo",
+        "anunciado",
+        "tipo"
       );
-      console.log(uniqueTypes);
 
       setGlobalNumbers({
-        federal: uniqueNames[0]?.["VALOR ANUNCIADO"] / 1000000000 || 0,
-        estadual: uniqueNames[1]?.["VALOR ANUNCIADO"] / 1000000 || 0,
+        federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
+        estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000 || 0,
         repasses:
-          (uniqueNames[0]?.["VALOR ANUNCIADO"] +
-            uniqueNames[1]?.["VALOR ANUNCIADO"]) /
+          (uniqueGovAnunciado[0]?.["anunciado"] +
+            uniqueGovAnunciado[1]?.["anunciado"]) /
           1000000000,
         investido: generalInvestment[2]?.["VALOR"] / 1000000,
       });
 
+      setFederalInvestment({
+        anunciado: uniqueGovAnunciado[0]?.["anunciado"],
+        empenhado: uniqueGovEmpenhado[0]?.["empenhado"],
+        liquidado: uniqueGovLiquidado[0]?.["liquidado"],
+        pago: uniqueGovPago[0]?.["pago"],
+      });
+
+      setEstadualInvestment({
+        anunciado: uniqueGovAnunciado[1]?.["anunciado"],
+        empenhado: uniqueGovEmpenhado[1]?.["empenhado"],
+        liquidado: uniqueGovLiquidado[1]?.["liquidado"],
+        pago: uniqueGovPago[1]?.["pago"],
+      });
       setGeneralInvestment({
         anunciado:
-          uniqueNames[0]?.["VALOR ANUNCIADO"] +
-          uniqueNames[1]?.["VALOR ANUNCIADO"],
-        empenhado: generalInvestment[0]?.["VALOR"],
-        liquidado: generalInvestment[1]?.["VALOR"],
-        pago: generalInvestment[2]?.["VALOR"],
-      });
-      setFederalInvestment({
-        anunciado: uniqueNames[0]?.["VALOR ANUNCIADO"],
-        empenhado: generalInvestment[0]?.["VALOR"],
-        liquidado: generalInvestment[1]?.["VALOR"],
-        pago: generalInvestment[2]?.["VALOR"],
-      });
-      setEstadualInvestment({
-        anunciado: uniqueNames[1]?.["VALOR ANUNCIADO"],
-        empenhado: generalInvestment[0]?.["VALOR"],
-        liquidado: generalInvestment[1]?.["VALOR"],
-        pago: generalInvestment[2]?.["VALOR"],
+          uniqueGovAnunciado[0]?.["anunciado"] +
+          uniqueGovAnunciado[1]?.["anunciado"],
+        empenhado:
+          uniqueGovEmpenhado[0]?.["empenhado"] +
+          uniqueGovEmpenhado[1]?.["empenhado"],
+        liquidado:
+          uniqueGovLiquidado[0]?.["liquidado"] +
+          uniqueGovLiquidado[1]?.["liquidado"],
+        pago: uniqueGovPago[0]?.["pago"] + uniqueGovPago[1]?.["pago"],
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

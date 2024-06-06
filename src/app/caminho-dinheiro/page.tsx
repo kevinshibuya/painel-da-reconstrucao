@@ -6,6 +6,17 @@ import ReactPaginate from "react-paginate";
 
 import styles from "./page.module.scss";
 import { Accordion, AccordionItem } from "@szhsin/react-accordion";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Tooltip,
+  LinearScale,
+} from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, CategoryScale, BarElement, LinearScale);
 
 export default function CaminhoDinheiro() {
   const { data } = useDataContext();
@@ -15,7 +26,7 @@ export default function CaminhoDinheiro() {
 
   return (
     <main className={styles.container}>
-      <h1 className="big_section_title">Caminho do dinheiro</h1>
+      <h1 className="big_section_title">Onde o dinheiro é aplicado</h1>
       <div className="content_block">
         <PaginatedItems itemsPerPage={5} data={dataValue.detalhamentos} />
       </div>
@@ -24,25 +35,75 @@ export default function CaminhoDinheiro() {
 }
 
 function Items({ currentItems }: any) {
-  console.log(currentItems);
-  // return <h1>hi</h1>;
+  var options = { style: "currency", currency: "BRL" };
+  var formatter = new Intl.NumberFormat("pt-BR", options);
+
   return (
     <div className="items">
       {currentItems &&
-        currentItems.map((item: any, i: number) => (
-          <Accordion key={i} transition transitionTimeout={250}>
-            <AccordionItem
-              header={
-                <div>
-                  <p>{item.Favorecido}</p>
-                  <p>{item.FASE}</p>
+        currentItems.map((item: any, i: number) => {
+          const dataBarFederal: any = {
+            labels: [""],
+            datasets: [
+              {
+                label: "Liquidado",
+                data: [20000],
+                backgroundColor: "#4318FF",
+                borderRadius: { topLeft: 10, bottomLeft: 10 },
+                borderSkipped: "end",
+              },
+              {
+                label: "Pago",
+                data: [30000],
+                backgroundColor: "#05CD99",
+                borderRadius: 10,
+              },
+            ],
+          };
+          const barOptions: any = {
+            indexAxis: "y",
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                display: false,
+                stacked: true,
+              },
+              x: {
+                display: false,
+                stacked: true,
+              },
+            },
+            maintainAspectRatio: false,
+          };
+
+          return (
+            <Accordion key={i} transition transitionTimeout={250}>
+              <AccordionItem
+                header={
+                  <div className="accordion_header_wrapper">
+                    <div className="left_side">
+                      <h1 className="favorecido_title">{item["Favorecido"]}</h1>
+                      <h1 className="favorecido_subtitle">{item["Ação"]}</h1>
+                    </div>
+                    <div className="right_side">
+                      <h1 className="favorecido_title">
+                        {formatter.format(item["VALOR"])}
+                      </h1>
+                    </div>
+                  </div>
+                }
+              >
+                <div className="bar_wrapper">
+                  <Bar options={barOptions} data={dataBarFederal} />
                 </div>
-              }
-            >
-              {item.DOCUMENTO}
-            </AccordionItem>
-          </Accordion>
-        ))}
+              </AccordionItem>
+            </Accordion>
+          );
+        })}
     </div>
   );
 }
@@ -59,7 +120,6 @@ function PaginatedItems({ itemsPerPage, data }: any) {
     // Fetch items from another resources.
     if (data) {
       const endOffset = itemOffset + itemsPerPage;
-      console.log(`Loading items from ${itemOffset} to ${endOffset}`);
       setCurrentItems(data.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(data.length / itemsPerPage));
     }
@@ -69,9 +129,6 @@ function PaginatedItems({ itemsPerPage, data }: any) {
   // Invoke when user click to request another page.
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
 

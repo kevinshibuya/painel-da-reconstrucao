@@ -5,6 +5,8 @@ import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDataContext } from "../context/dados";
+import detalhamentos from "../../public/data/detalhamento.json";
+import geral from "../../public/data/geral.json";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -16,17 +18,7 @@ export function Providers({ children }: ProvidersProps) {
   const [dataValue, setDataValue] = data;
 
   useEffect(() => {
-    let responses = { detalhamentos: [], geral: [] };
-
-    fetch("data/detalhamento.json")
-      .then((res) => res.json())
-      .then((res) => (responses.detalhamentos = res))
-      .then(() =>
-        fetch("data/geral.json")
-          .then((res) => res.json())
-          .then((res) => (responses.geral = res))
-          .then(() => setDataValue(responses))
-      );
+    setDataValue({ detalhamentos, geral });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

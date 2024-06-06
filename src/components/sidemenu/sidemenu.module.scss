@@ -29,11 +29,24 @@
       text-decoration: none;
       transition: all 0.1s ease-in;
 
+      svg {
+        min-width: 24px;
+        min-height: 24px;
+      }
+
       &:hover {
         color: var(--primary-300);
 
-        svg path {
-          fill: var(--primary-300);
+        svg:not(.stroke) {
+          path {
+            fill: var(--primary-300);
+          }
+        }
+
+        svg.stroke {
+          path {
+            stroke: var(--primary-300);
+          }
         }
       }
 
@@ -41,8 +54,12 @@
         color: var(--primary-500);
         font-weight: 700;
 
-        svg path {
+        svg:not(.stroke) path {
           fill: var(--primary-500);
+        }
+
+        svg.stroke path {
+          stroke: var(--primary-500);
         }
 
         &::after {

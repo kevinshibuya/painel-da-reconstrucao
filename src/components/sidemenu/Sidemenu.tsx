@@ -7,6 +7,11 @@ import Link from "next/link";
 
 import styles from "./sidemenu.module.scss";
 
+import logoPainel from "../../../public/logo_painel.png";
+import logoPraCimaRS from "../../../public/logo_pracimars.svg";
+
+const basePath = "/especiais/painel-da-reconstrucao";
+
 export default function Sidemenu() {
   const pathname = usePathname();
 
@@ -15,9 +20,10 @@ export default function Sidemenu() {
 
     links.forEach((link) => {
       const parsedUrl = new URL(link.href);
+      const linkPath = parsedUrl.pathname.replace(basePath, "");
       link.classList.remove(styles.active);
 
-      if (parsedUrl.pathname === pathname) {
+      if (linkPath === pathname) {
         link.classList.add(styles.active);
       }
     });
@@ -26,8 +32,8 @@ export default function Sidemenu() {
   return (
     <aside className={styles.container}>
       <header>
-        <Image
-          src="/logo_painel.png"
+        <img
+          src={logoPainel.src}
           alt="Logo Painel da reconstrução"
           width={160}
           height={44}
@@ -76,7 +82,7 @@ export default function Sidemenu() {
               </clipPath>
             </defs>
           </svg>
-          Caminho do dinheiro
+          Onde o dinheiro é aplicado
         </Link>
         <Link href="/como-funciona">
           <svg
@@ -102,35 +108,92 @@ export default function Sidemenu() {
         </Link>
         <Link href="/entenda-termos">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M11.19 1.36L4.19 4.47C3.47 4.79 3 5.51 3 6.3V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V6.3C21 5.51 20.53 4.79 19.81 4.47L12.81 1.36C12.3 1.13 11.7 1.13 11.19 1.36ZM12 11.99H19C18.47 16.11 15.72 19.78 12 20.93V12H5V6.3L12 3.19V11.99Z"
-              fill="#ADADAD"
-            />
+            <g clipPath="url(#clip0_638_737)">
+              <path
+                d="M12 23.1429V14.1429C12 13.5745 12.2258 13.0295 12.6276 12.6276C13.0295 12.2258 13.5745 12 14.1429 12C14.7112 12 15.2562 12.2258 15.6581 12.6276C16.0599 13.0295 16.2857 13.5745 16.2857 14.1429V18.8571H19.7143C20.6235 18.8571 21.4956 19.2183 22.1386 19.8614C22.7817 20.5044 23.1429 21.3765 23.1429 22.2857V23.1429"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10.727 5.30574C8.59013 2.95428 5.7227 1.39216 2.58821 0.871935C2.37494 0.841731 2.15767 0.85725 1.95086 0.917465C1.74403 0.977677 1.55239 1.08121 1.38866 1.22117C1.22199 1.36373 1.08817 1.54071 0.996433 1.73993C0.90469 1.93913 0.857192 2.15586 0.857206 2.37517V14.5985C0.854929 14.9739 0.991779 15.3368 1.24134 15.6172C1.49091 15.8976 1.8355 16.0757 2.2086 16.117C4.65679 16.449 6.95899 17.4178 8.89425 18.9072"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10.7278 10.0426V5.30566"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M19.2452 16.117C19.6183 16.0757 19.9628 15.8976 20.2124 15.6172C20.462 15.3368 20.5988 14.9739 20.5966 14.5985V2.37517C20.5966 2.15586 20.5491 1.93913 20.4574 1.73993C20.3657 1.54071 20.2318 1.36373 20.0652 1.22117C19.9015 1.08121 19.7098 0.977677 19.5029 0.917465C19.2961 0.85725 19.0789 0.841731 18.8655 0.871935C15.7311 1.39216 12.8637 2.95428 10.7268 5.30574"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_638_737">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
           </svg>
           Entenda os termos utilizados
         </Link>
         <Link href="/entenda-medidas">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_517_293)">
+            <g clipPath="url(#clip0_638_731)">
               <path
-                d="M19.43 12.98C19.47 12.66 19.5 12.34 19.5 12C19.5 11.66 19.47 11.34 19.43 11.02L21.54 9.37C21.73 9.22 21.78 8.95 21.66 8.73L19.66 5.27C19.57 5.11 19.4 5.02 19.22 5.02C19.16 5.02 19.1 5.03 19.05 5.05L16.56 6.05C16.04 5.65 15.48 5.32 14.87 5.07L14.49 2.42C14.46 2.18 14.25 2 14 2H9.99996C9.74996 2 9.53996 2.18 9.50996 2.42L9.12996 5.07C8.51996 5.32 7.95996 5.66 7.43996 6.05L4.94996 5.05C4.88996 5.03 4.82996 5.02 4.76996 5.02C4.59996 5.02 4.42996 5.11 4.33996 5.27L2.33996 8.73C2.20996 8.95 2.26996 9.22 2.45996 9.37L4.56996 11.02C4.52996 11.34 4.49996 11.67 4.49996 12C4.49996 12.33 4.52996 12.66 4.56996 12.98L2.45996 14.63C2.26996 14.78 2.21996 15.05 2.33996 15.27L4.33996 18.73C4.42996 18.89 4.59996 18.98 4.77996 18.98C4.83996 18.98 4.89996 18.97 4.94996 18.95L7.43996 17.95C7.95996 18.35 8.51996 18.68 9.12996 18.93L9.50996 21.58C9.53996 21.82 9.74996 22 9.99996 22H14C14.25 22 14.46 21.82 14.49 21.58L14.87 18.93C15.48 18.68 16.04 18.34 16.56 17.95L19.05 18.95C19.11 18.97 19.17 18.98 19.23 18.98C19.4 18.98 19.57 18.89 19.66 18.73L21.66 15.27C21.78 15.05 21.73 14.78 21.54 14.63L19.43 12.98ZM17.45 11.27C17.49 11.58 17.5 11.79 17.5 12C17.5 12.21 17.48 12.43 17.45 12.73L17.31 13.86L18.2 14.56L19.28 15.4L18.58 16.61L17.31 16.1L16.27 15.68L15.37 16.36C14.94 16.68 14.53 16.92 14.12 17.09L13.06 17.52L12.9 18.65L12.7 20H11.3L11.11 18.65L10.95 17.52L9.88996 17.09C9.45996 16.91 9.05996 16.68 8.65996 16.38L7.74996 15.68L6.68996 16.11L5.41996 16.62L4.71996 15.41L5.79996 14.57L6.68996 13.87L6.54996 12.74C6.51996 12.43 6.49996 12.2 6.49996 12C6.49996 11.8 6.51996 11.57 6.54996 11.27L6.68996 10.14L5.79996 9.44L4.71996 8.6L5.41996 7.39L6.68996 7.9L7.72996 8.32L8.62996 7.64C9.05996 7.32 9.46996 7.08 9.87996 6.91L10.94 6.48L11.1 5.35L11.3 4H12.69L12.88 5.35L13.04 6.48L14.1 6.91C14.53 7.09 14.93 7.32 15.33 7.62L16.24 8.32L17.3 7.89L18.57 7.38L19.27 8.59L18.2 9.44L17.31 10.14L17.45 11.27ZM12 8C9.78996 8 7.99996 9.79 7.99996 12C7.99996 14.21 9.78996 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM12 14C10.9 14 9.99996 13.1 9.99996 12C9.99996 10.9 10.9 10 12 10C13.1 10 14 10.9 14 12C14 13.1 13.1 14 12 14Z"
-                fill="#ADADAD"
+                d="M11.1429 21.4284C16.8235 21.4284 21.4286 16.8233 21.4286 11.1426C21.4286 5.462 16.8235 0.856934 11.1429 0.856934C5.46225 0.856934 0.857178 5.462 0.857178 11.1426C0.857178 16.8233 5.46225 21.4284 11.1429 21.4284Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M18.4114 18.4111L23.1428 23.1426"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M6.00024 10.026C6.00024 9.18861 6.67908 8.50977 7.51648 8.50977H14.7691C15.6065 8.50977 16.2854 9.18861 16.2854 10.026V14.3401C16.2854 15.1774 15.6065 15.8563 14.7691 15.8563H7.51648C6.67908 15.8563 6.00024 15.1774 6.00024 14.3401V10.026Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M8.93896 8.15996V7.28557C8.93896 6.33881 9.70647 5.57129 10.6533 5.57129H11.6326C12.5794 5.57129 13.3469 6.33881 13.3469 7.28557V8.15996"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
-              <clipPath id="clip0_517_293">
+              <clipPath id="clip0_638_731">
                 <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
@@ -139,42 +202,134 @@ export default function Sidemenu() {
         </Link>
         <Link href="/auxilios-cidadao">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_517_280)">
-              <path
-                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
-                fill="#ADADAD"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_517_280">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
+            <path
+              d="M18.6941 8.78379C20.2289 8.78379 21.473 7.53965 21.473 6.00493C21.473 4.47021 20.2289 3.22607 18.6941 3.22607C17.1594 3.22607 15.9153 4.47021 15.9153 6.00493C15.9153 7.53965 17.1594 8.78379 18.6941 8.78379Z"
+              stroke="#ADADAD"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M14.5254 14.344V12.9542C14.5254 10.6514 16.3922 8.78467 18.695 8.78467C20.9978 8.78467 22.8645 10.6514 22.8645 12.9542V14.344"
+              stroke="#ADADAD"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M11.3149 14.3462H22.865"
+              stroke="#ADADAD"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M6.17803 9.62071C7.79918 9.62071 9.11338 8.3065 9.11338 6.68535C9.11338 5.06421 7.79918 3.75 6.17803 3.75C4.55688 3.75 3.24268 5.06421 3.24268 6.68535C3.24268 8.3065 4.55688 9.62071 6.17803 9.62071Z"
+              stroke="#ADADAD"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M11.315 14.7575C11.315 13.3951 10.7738 12.0885 9.81043 11.1252C8.84709 10.1618 7.54051 9.62061 6.17813 9.62061C4.81574 9.62061 3.50916 10.1618 2.54582 11.1252C1.58246 12.0885 1.04126 13.3951 1.04126 14.7575V16.959H3.24278L3.97661 22.8298H8.37963L9.11347 16.959H11.315V14.7575Z"
+              stroke="#ADADAD"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           Como cidadãos solicitam auxílios
         </Link>
         <Link href="/estado-recursos">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_517_280)">
+            <g clipPath="url(#clip0_640_1518)">
               <path
-                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
-                fill="#ADADAD"
+                d="M1.21216 23.0361H23.0692"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M6.61719 9.7504L12.1408 5.41113L17.6644 9.7504"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M7.45728 13.3931H16.8246V23.0359H7.45728V13.3931Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M5.55151 9.75H18.7301V13.3872H5.55151V9.75Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2.77319 13.3872V23.0357"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M21.5081 13.3872V23.0321"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M1.21216 13.3872H23.0692"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12.1407 5.41087L12.1406 1.15576"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12.1409 1.15576H14.2844"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10.4495 19.2055C10.4495 18.3244 11.1639 17.6099 12.0452 17.6099C12.9264 17.6099 13.6408 18.3244 13.6408 19.2055V23.0361H10.4495V19.2055Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
-              <clipPath id="clip0_517_280">
+              <clipPath id="clip0_640_1518">
                 <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
@@ -183,20 +338,52 @@ export default function Sidemenu() {
         </Link>
         <Link href="/empresas-beneficios">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_517_280)">
+            <g clipPath="url(#clip0_638_717)">
               <path
-                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
-                fill="#ADADAD"
+                d="M16.8102 7.26696C16.7335 7.04993 16.6151 6.85256 16.4647 6.6845C16.1447 6.32702 15.6798 6.10205 15.1623 6.10205H13.8098C12.9483 6.10205 12.25 6.80038 12.25 7.66179C12.25 8.39479 12.7604 9.02889 13.4764 9.18552L15.5357 9.63598C16.3379 9.81146 16.9096 10.5223 16.9096 11.3435C16.9096 12.3085 16.1273 13.0915 15.1623 13.0915H13.9974C13.2366 13.0915 12.5893 12.6052 12.3494 11.9266"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14.5798 6.10186V4.35449"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14.5798 14.8387V13.0913"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14.5799 17.9811C19.2106 17.9811 22.9645 14.2272 22.9645 9.59649C22.9645 4.96581 19.2106 1.21191 14.5799 1.21191C9.94921 1.21191 6.19531 4.96581 6.19531 9.59649C6.19531 14.2272 9.94921 17.9811 14.5799 17.9811Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M2.06216 10.5151C1.41852 11.7019 1.05298 13.0615 1.05298 14.5064C1.05298 19.1368 4.8066 22.8904 9.4369 22.8904C10.7491 22.8904 11.991 22.5889 13.0969 22.0514"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
-              <clipPath id="clip0_517_280">
+              <clipPath id="clip0_638_717">
                 <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
@@ -205,30 +392,61 @@ export default function Sidemenu() {
         </Link>
         <Link href="/calendar">
           <svg
+            className={styles.stroke}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clipPath="url(#clip0_517_280)">
+            <g clipPath="url(#clip0_638_724)">
               <path
-                d="M20 3H19V1H17V3H7V1H5V3H4C2.9 3 2 3.9 2 5V21C2 22.1 2.9 23 4 23H20C21.1 23 22 22.1 22 21V5C22 3.9 21.1 3 20 3ZM20 21H4V10H20V21ZM20 8H4V5H20V8Z"
-                fill="#ADADAD"
+                d="M17.1429 21.4288C19.5098 21.4288 21.4286 19.5102 21.4286 17.1431C21.4286 14.7762 19.5098 12.8574 17.1429 12.8574C14.776 12.8574 12.8572 14.7762 12.8572 17.1431C12.8572 19.5102 14.776 21.4288 17.1429 21.4288Z"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M23.142 23.1425L20.1763 20.1768"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12 3.42836C12 2.00821 10.8488 0.856934 9.42861 0.856934H0.857178V17.9997H9.42861"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12 3.42871V11.143"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M12 3.42836C12 2.0082 13.1513 0.856934 14.5714 0.856934H23.1429V12.8573"
+                stroke="#ADADAD"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>
-              <clipPath id="clip0_517_280">
+              <clipPath id="clip0_638_724">
                 <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
           </svg>
           Leia mais sobre reconstrução do RS
         </Link>
-
-        <Image
-          src="/logo_pracimars.svg"
-          alt="Logo Painel da reconstrução"
+        <img
+          src={logoPraCimaRS.src}
+          alt="Logo Pra Cima Rio Grande"
           width={230}
           height={44}
         />

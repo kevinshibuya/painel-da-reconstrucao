@@ -104,7 +104,7 @@ export default function DadosGerais() {
     ],
   };
 
-  const dataBarFederal = {
+  const dataBarFederal: any = {
     labels: [""],
     datasets: [
       {
@@ -141,7 +141,7 @@ export default function DadosGerais() {
     maintainAspectRatio: false,
   };
 
-  const barOptions = {
+  const barOptions: any = {
     indexAxis: "y",
     plugins: {
       legend: {
@@ -235,12 +235,12 @@ export default function DadosGerais() {
                 <h1>Valor anunciado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.anunciado ? (
+              {federalInvestmentValue.anunciado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.anunciado
-                      ? generalInvestmentValue.anunciado
+                    federalInvestmentValue.anunciado
+                      ? federalInvestmentValue.anunciado
                       : 0.0
                   }
                   duration={1}
@@ -248,6 +248,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -263,12 +264,12 @@ export default function DadosGerais() {
                 <h1>Valor empenhado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.empenhado ? (
+              {federalInvestmentValue.empenhado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.empenhado
-                      ? generalInvestmentValue.empenhado
+                    federalInvestmentValue.empenhado
+                      ? federalInvestmentValue.empenhado
                       : 0.0
                   }
                   duration={1}
@@ -276,6 +277,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -291,12 +293,12 @@ export default function DadosGerais() {
                 <h1>Valor liquidado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.liquidado ? (
+              {federalInvestmentValue.liquidado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.liquidado
-                      ? generalInvestmentValue.liquidado
+                    federalInvestmentValue.liquidado
+                      ? federalInvestmentValue.liquidado
                       : 0.0
                   }
                   duration={1}
@@ -304,6 +306,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -319,12 +322,12 @@ export default function DadosGerais() {
                 <h1>Valor pago</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.pago ? (
+              {federalInvestmentValue.pago ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.pago
-                      ? generalInvestmentValue.pago
+                    federalInvestmentValue.pago
+                      ? federalInvestmentValue.pago
                       : 0.0
                   }
                   duration={1}
@@ -332,6 +335,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -347,7 +351,7 @@ export default function DadosGerais() {
           </div>
         </div>
         <h1 className="bar_title section_title">Divisão dos valores</h1>
-        <div className={styles.bar_wrapper}>
+        <div className="bar_wrapper">
           <Bar options={barOptions} data={dataBarFederal} />
         </div>
         <div className="bar_labels_container">
@@ -441,12 +445,12 @@ export default function DadosGerais() {
                 <h1>Valor anunciado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.anunciado ? (
+              {estadualInvestmentValue.anunciado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.anunciado
-                      ? generalInvestmentValue.anunciado
+                    estadualInvestmentValue.anunciado
+                      ? estadualInvestmentValue.anunciado
                       : 0.0
                   }
                   duration={1}
@@ -454,6 +458,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -469,12 +474,12 @@ export default function DadosGerais() {
                 <h1>Valor empenhado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.empenhado ? (
+              {estadualInvestmentValue.empenhado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.empenhado
-                      ? generalInvestmentValue.empenhado
+                    estadualInvestmentValue.empenhado
+                      ? estadualInvestmentValue.empenhado
                       : 0.0
                   }
                   duration={1}
@@ -482,6 +487,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -497,12 +503,12 @@ export default function DadosGerais() {
                 <h1>Valor liquidado</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.liquidado ? (
+              {estadualInvestmentValue.liquidado ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.liquidado
-                      ? generalInvestmentValue.liquidado
+                    estadualInvestmentValue.liquidado
+                      ? estadualInvestmentValue.liquidado
                       : 0.0
                   }
                   duration={1}
@@ -510,6 +516,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -525,12 +532,12 @@ export default function DadosGerais() {
                 <h1>Valor pago</h1>
                 <div className="caption_tooltip"></div>
               </div>
-              {generalInvestmentValue.pago ? (
+              {estadualInvestmentValue.pago ? (
                 <CountUp
                   start={0}
                   end={
-                    generalInvestmentValue.pago
-                      ? generalInvestmentValue.pago
+                    estadualInvestmentValue.pago
+                      ? estadualInvestmentValue.pago
                       : 0.0
                   }
                   duration={1}
@@ -538,6 +545,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -553,7 +561,7 @@ export default function DadosGerais() {
           </div>
         </div>
         <h1 className="bar_title section_title">Divisão dos valores</h1>
-        <div className={styles.bar_wrapper}>
+        <div className="bar_wrapper">
           <Bar options={barOptions} data={dataBarFederal} />
         </div>
         <div className="bar_labels_container">
@@ -660,6 +668,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -688,6 +697,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -716,6 +726,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -744,6 +755,7 @@ export default function DadosGerais() {
                   decimal=","
                   prefix="R$ "
                   decimals={2}
+                  delay={0}
                 >
                   {({ countUpRef }) => (
                     <span ref={countUpRef} className="caption_value" />
@@ -759,7 +771,7 @@ export default function DadosGerais() {
           </div>
         </div>
         <h1 className="bar_title section_title">Divisão dos valores</h1>
-        <div className={styles.bar_wrapper}>
+        <div className="bar_wrapper">
           <Bar options={barOptions} data={dataBarFederal} />
         </div>
         <div className="bar_labels_container">

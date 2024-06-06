@@ -7,6 +7,9 @@ import { useDataContext } from "@/context/dados";
 import { useEffect } from "react";
 import CountUp from "react-countup";
 
+import graphMain from "../../../public/icons/graph_main_icon.svg";
+import graphSub from "../../../public/icons/graph_sub_icon.svg";
+
 export default function GlobalNumbers() {
   const { globalNumbers } = useDataContext();
   const [globalNumbersValue, setGlobalNumbersValue] = globalNumbers;
@@ -24,6 +27,7 @@ export default function GlobalNumbers() {
             decimal=","
             prefix="R$ "
             suffix=" bilhões"
+            delay={0}
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
@@ -46,6 +50,7 @@ export default function GlobalNumbers() {
             decimal=","
             prefix="R$ "
             suffix=" milhões"
+            delay={0}
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
@@ -59,12 +64,7 @@ export default function GlobalNumbers() {
         className="content_block icon_block main_highlight"
         id="totalInvestment"
       >
-        <Image
-          src="/icons/graph_main_icon.svg"
-          alt="Ícone gráfico"
-          width={46}
-          height={46}
-        />
+        <img src={graphMain.src} alt="Ícone gráfico" width={46} height={46} />
         <div className="content_icon_block_wrapper">
           <h1 className="segment_title">Total investido</h1>
           {globalNumbersValue.repasses ? (
@@ -78,6 +78,7 @@ export default function GlobalNumbers() {
               decimal=","
               prefix="R$ "
               suffix=" bilhões"
+              delay={0}
             >
               {({ countUpRef }) => (
                 <span ref={countUpRef} className="general_value" />
@@ -92,12 +93,7 @@ export default function GlobalNumbers() {
         className="content_block icon_block sub_highlight"
         id="actualInvestment"
       >
-        <Image
-          src="/icons/graph_sub_icon.svg"
-          alt="Ícone gráfico"
-          width={56}
-          height={56}
-        />
+        <img src={graphSub.src} alt="Ícone gráfico" width={56} height={56} />
         <div className="content_icon_block_wrapper">
           <h1 className="segment_title">Total pago</h1>
           {globalNumbersValue.investido ? (
@@ -113,6 +109,7 @@ export default function GlobalNumbers() {
               decimal=","
               prefix="R$ "
               suffix=" milhões"
+              delay={0}
             >
               {({ countUpRef }) => (
                 <span ref={countUpRef} className="general_value" />

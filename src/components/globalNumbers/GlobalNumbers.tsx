@@ -14,7 +14,7 @@ export default function GlobalNumbers() {
   return (
     <header className={styles.container}>
       <div className="content_block federal_highlight" id="federalInvestment">
-        <h1 className="segment_title">Investimento Federal</h1>
+        <h1 className="segment_title">Anúncio Federal</h1>
         {globalNumbersValue.federal ? (
           <CountUp
             start={0}
@@ -34,7 +34,7 @@ export default function GlobalNumbers() {
         )}
       </div>
       <div className="content_block estadual_highlight" id="stateInvestment">
-        <h1 className="segment_title">Investimento Estadual</h1>
+        <h1 className="segment_title">Anúncio Estadual</h1>
         {globalNumbersValue.estadual ? (
           <CountUp
             start={0}
@@ -62,8 +62,8 @@ export default function GlobalNumbers() {
         <Image
           src="/icons/graph_main_icon.svg"
           alt="Ícone gráfico"
-          width={56}
-          height={56}
+          width={46}
+          height={46}
         />
         <div className="content_icon_block_wrapper">
           <h1 className="segment_title">Total investido</h1>

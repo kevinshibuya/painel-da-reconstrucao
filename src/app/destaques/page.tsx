@@ -474,7 +474,7 @@ export default function Highlights() {
       </div>
       <div className="content_block">
         <div className="content_title_wrapper">
-          <h1 className="big_section_title">Valores totais</h1>
+          <h1 className="big_section_title">Total</h1>
           <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>
               <Button variant="bordered" className={styles.dropdown_container}>

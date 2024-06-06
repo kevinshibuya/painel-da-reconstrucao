@@ -18,7 +18,7 @@ export default function Header() {
           <h1>Painel da reconstrução</h1>
         </div>
       </div>
-      <div className={styles.input_wrapper}>
+      {/* <div className={styles.input_wrapper}>
         <Image
           src="/icons/search_icon.png"
           alt="Ícone de pesquisa"
@@ -31,7 +31,7 @@ export default function Header() {
           id="headerSearch"
           placeholder="Pesquisar"
         />
-      </div>
+      </div> */}
     </header>
   );
 }

@@ -15,6 +15,7 @@ import {
   Tooltip,
   LinearScale,
 } from "chart.js";
+import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, BarElement, LinearScale);
 
@@ -26,6 +27,14 @@ export default function CaminhoDinheiro() {
 
   return (
     <main className={styles.container}>
+      <Breadcrumb
+        homeElement={"Home"}
+        separator={<span> / </span>}
+        activeClasses="text-amber-500"
+        containerClasses="flex py-5 bg-gradient-to-r from-purple-600 to-blue-600"
+        listClasses="hover:underline mx-2 font-bold"
+        capitalizeLinks
+      />
       <h1 className="big_section_title">Onde o dinheiro é aplicado</h1>
       <div className="content_block">
         <PaginatedItems itemsPerPage={5} data={dataValue.detalhamentos} />

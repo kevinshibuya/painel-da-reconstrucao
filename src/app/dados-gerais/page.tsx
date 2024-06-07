@@ -9,6 +9,7 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
+import dynamic from "next/dynamic";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -27,6 +28,7 @@ import styles from "./page.module.scss";
 ChartJS.register(ArcElement, Tooltip, LinearScale, CategoryScale, BarElement);
 
 export default function DadosGerais() {
+  const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data, generalInvestment, federalInvestment, estadualInvestment } =
     useDataContext();
   const [generalInvestmentValue, setGeneralInvestmentValue] = generalInvestment;
@@ -37,7 +39,7 @@ export default function DadosGerais() {
 
   const dataFederal = {
     labels: [
-      "Valor anunciado",
+      "Valor prometido",
       "Valor empenhado",
       "Valor liquidado",
       "Valor pago",
@@ -46,21 +48,28 @@ export default function DadosGerais() {
       {
         label: "Valor",
         data: [
-          Math.round(federalInvestmentValue.anunciado * 100) / 100,
+          Math.round(
+            (federalInvestmentValue.anunciado -
+              (federalInvestmentValue.empenhado +
+                federalInvestmentValue.liquidado +
+                federalInvestmentValue.pago)) *
+              100
+          ) / 100,
           Math.round(federalInvestmentValue.empenhado * 100) / 100,
           Math.round(federalInvestmentValue.liquidado * 100) / 100,
           Math.round(federalInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 0,
-        hoverOffset: 4,
+        borderWidth: 8,
+        borderColor: "#707070",
+        hoverOffset: 2,
       },
     ],
   };
 
   const dataEstadual = {
     labels: [
-      "Valor anunciado",
+      "Valor prometido",
       "Valor empenhado",
       "Valor liquidado",
       "Valor pago",
@@ -69,21 +78,28 @@ export default function DadosGerais() {
       {
         label: "Valor",
         data: [
-          Math.round(estadualInvestmentValue.anunciado * 100) / 100,
+          Math.round(
+            (estadualInvestmentValue.anunciado -
+              (estadualInvestmentValue.empenhado +
+                estadualInvestmentValue.liquidado +
+                estadualInvestmentValue.pago)) *
+              100
+          ) / 100,
           Math.round(estadualInvestmentValue.empenhado * 100) / 100,
           Math.round(estadualInvestmentValue.liquidado * 100) / 100,
           Math.round(estadualInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 0,
-        hoverOffset: 4,
+        borderWidth: 8,
+        borderColor: "#707070",
+        hoverOffset: 2,
       },
     ],
   };
 
   const dataGeral = {
     labels: [
-      "Valor anunciado",
+      "Valor prometido",
       "Valor empenhado",
       "Valor liquidado",
       "Valor pago",
@@ -92,43 +108,21 @@ export default function DadosGerais() {
       {
         label: "Valor",
         data: [
-          Math.round(generalInvestmentValue.anunciado * 100) / 100,
+          Math.round(
+            (generalInvestmentValue.anunciado -
+              (generalInvestmentValue.empenhado +
+                generalInvestmentValue.liquidado +
+                generalInvestmentValue.pago)) *
+              100
+          ) / 100,
           Math.round(generalInvestmentValue.empenhado * 100) / 100,
           Math.round(generalInvestmentValue.liquidado * 100) / 100,
           Math.round(generalInvestmentValue.pago * 100) / 100,
         ],
         backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 0,
-        hoverOffset: 4,
-      },
-    ],
-  };
-
-  const dataBarFederal: any = {
-    labels: [""],
-    datasets: [
-      {
-        label: "currentAmount",
-        data: [20000],
-        backgroundColor: "blue",
-        borderRadius: { topLeft: 10, bottomLeft: 10 },
-        borderSkipped: "end",
-      },
-      {
-        label: "amount 1",
-        data: [30000],
-        backgroundColor: "orange",
-      },
-      {
-        label: "amount 2",
-        data: [15000],
-        backgroundColor: "green",
-      },
-      {
-        label: "remaining",
-        data: [25000],
-        backgroundColor: "yellow",
-        borderRadius: 10,
+        borderWidth: 8,
+        borderColor: "#707070",
+        hoverOffset: 2,
       },
     ],
   };
@@ -141,25 +135,91 @@ export default function DadosGerais() {
     maintainAspectRatio: false,
   };
 
-  const barOptions: any = {
-    indexAxis: "y",
-    plugins: {
-      legend: {
-        display: false,
+  const apexBarOptions: any = {
+    chart: {
+      type: "bar",
+      stacked: true,
+      stackType: "100%",
+      toolbar: {
+        show: false,
       },
     },
-    scales: {
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        borderRadius: 15,
+      },
+    },
+    xaxis: {
+      show: false,
+      categories: ["Entenda os valores"],
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+    },
+    yaxis: {
+      show: true,
+      labels: {
+        show: false,
+      },
+    },
+    grid: {
+      show: false,
+    },
+    tooltip: {
       y: {
-        display: false,
-        stacked: true,
-      },
-      x: {
-        display: false,
-        stacked: true,
+        formatter: function (val: any) {
+          var options = { style: "currency", currency: "BRL" };
+          var formatter = new Intl.NumberFormat("pt-BR", options);
+
+          return formatter.format(val);
+        },
       },
     },
-    maintainAspectRatio: false,
+    fill: {
+      opacity: 1,
+    },
+    legend: {
+      show: false,
+    },
   };
+
+  const apexBarFederalData: any = [
+    {
+      name: "Linhas de crédito",
+      data: [federalInvestmentValue.linhaCredito],
+      color: "#8B0000",
+    },
+    {
+      name: "Recursos novos",
+      data: [federalInvestmentValue.antecipacaoAdiamento],
+      color: "#B8860B",
+    },
+    {
+      name: "Antecipação de benefícios ou adiamento de tributos",
+      data: [federalInvestmentValue.recursosNovos],
+      color: "#8A2BE2",
+    },
+  ];
+
+  const apexBarEstadualData: any = [
+    {
+      name: "Recursos novos",
+      data: [estadualInvestmentValue.recursosNovos],
+      color: "#B8860B",
+    },
+    {
+      name: "Doação",
+      data: [estadualInvestmentValue.doacao],
+      color: "#008B8B",
+    },
+  ];
 
   return (
     <main className={styles.container}>
@@ -232,7 +292,7 @@ export default function DadosGerais() {
             <div className="caption_wrapper advertised_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
-                <h1>Valor anunciado</h1>
+                <h1>Valor prometido</h1>
                 <div className="caption_tooltip"></div>
               </div>
               {federalInvestmentValue.anunciado ? (
@@ -350,26 +410,30 @@ export default function DadosGerais() {
             <Doughnut data={dataFederal} options={options} />
           </div>
         </div>
-        <h1 className="bar_title section_title">Divisão dos valores</h1>
+        <h1 className="bar_title section_title">Entenda os valores</h1>
         <div className="bar_wrapper">
-          <Bar options={barOptions} data={dataBarFederal} />
+          <Chart
+            options={apexBarOptions}
+            series={apexBarFederalData}
+            type="bar"
+            height={"100px"}
+            width={"100%"}
+          />
         </div>
         <div className="bar_labels_container">
-          <div className="bar_label_wrapper">
+          <div className="bar_label_wrapper linha_credito">
             <div className="bar_label_color"></div>
             <p className="bar_label">Linhas de crédito</p>
           </div>
-          <div className="bar_label_wrapper">
+          <div className="bar_label_wrapper novos_recursos">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Atrasos</p>
+            <p className="bar_label">Recursos novos</p>
           </div>
-          <div className="bar_label_wrapper">
+          <div className="bar_label_wrapper antecipacao_adiantamento">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Novos recursos</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Antecipação de benefícios</p>
+            <p className="bar_label">
+              Antecipação de benefícios ou adiamento de tributos
+            </p>
           </div>
         </div>
       </div>
@@ -442,7 +506,7 @@ export default function DadosGerais() {
             <div className="caption_wrapper advertised_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
-                <h1>Valor anunciado</h1>
+                <h1>Valor prometido</h1>
                 <div className="caption_tooltip"></div>
               </div>
               {estadualInvestmentValue.anunciado ? (
@@ -560,26 +624,24 @@ export default function DadosGerais() {
             <Doughnut data={dataEstadual} options={options} />
           </div>
         </div>
-        <h1 className="bar_title section_title">Divisão dos valores</h1>
+        <h1 className="bar_title section_title">Entenda os valores</h1>
         <div className="bar_wrapper">
-          <Bar options={barOptions} data={dataBarFederal} />
+          <Chart
+            options={apexBarOptions}
+            series={apexBarEstadualData}
+            type="bar"
+            height={"100px"}
+            width={"100%"}
+          />
         </div>
         <div className="bar_labels_container">
-          <div className="bar_label_wrapper">
+          <div className="bar_label_wrapper novos_recursos">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Linhas de crédito</p>
+            <p className="bar_label">Recursos novos</p>
           </div>
-          <div className="bar_label_wrapper">
+          <div className="bar_label_wrapper doacao">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Atrasos</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Novos recursos</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Antecipação de benefícios</p>
+            <p className="bar_label">Doação</p>
           </div>
         </div>
       </div>
@@ -652,7 +714,7 @@ export default function DadosGerais() {
             <div className="caption_wrapper advertised_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
-                <h1>Valor anunciado</h1>
+                <h1>Valor prometido</h1>
                 <div className="caption_tooltip"></div>
               </div>
               {generalInvestmentValue.anunciado ? (
@@ -768,28 +830,6 @@ export default function DadosGerais() {
           </div>
           <div className={styles.canvas_wrapper}>
             <Doughnut data={dataGeral} options={options} />
-          </div>
-        </div>
-        <h1 className="bar_title section_title">Divisão dos valores</h1>
-        <div className="bar_wrapper">
-          <Bar options={barOptions} data={dataBarFederal} />
-        </div>
-        <div className="bar_labels_container">
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Linhas de crédito</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Atrasos</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Novos recursos</p>
-          </div>
-          <div className="bar_label_wrapper">
-            <div className="bar_label_color"></div>
-            <p className="bar_label">Antecipação de benefícios</p>
           </div>
         </div>
       </div>

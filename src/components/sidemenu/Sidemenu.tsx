@@ -33,9 +33,9 @@ export default function Sidemenu() {
     <aside className={styles.container}>
       <header>
         <img
-          src={logoPainel.src}
-          alt="Logo Painel da reconstrução"
-          width={160}
+          src={logoPraCimaRS.src}
+          alt="Logo Pra Cima Rio Grande"
+          width={230}
           height={44}
         />
       </header>
@@ -444,12 +444,6 @@ export default function Sidemenu() {
           </svg>
           Leia mais sobre reconstrução do RS
         </Link>
-        <img
-          src={logoPraCimaRS.src}
-          alt="Logo Pra Cima Rio Grande"
-          width={230}
-          height={44}
-        />
       </nav>
     </aside>
   );

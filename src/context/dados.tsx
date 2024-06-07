@@ -40,6 +40,54 @@ export const getUniquePropertyValues = (
   return uniqueValues;
 };
 
+export const groupByUniqueProperty = (
+  array: any[],
+  uniqueProp: string,
+  valueProp: string,
+  additionalUniqueProp?: string
+) => {
+  const groups = new Map<string, { items: any[]; sum: number }>();
+
+  array.forEach((item) => {
+    const uniqueKey = additionalUniqueProp
+      ? `${item[uniqueProp]}-${item[additionalUniqueProp]}`
+      : item[uniqueProp];
+    const value = item[valueProp];
+
+    if (groups.has(uniqueKey)) {
+      const group = groups.get(uniqueKey) as {
+        items: any[];
+        sum: number;
+      };
+
+      group.items.push(item);
+      group.sum += value;
+    } else {
+      groups.set(uniqueKey, { items: [item], sum: value });
+    }
+  });
+
+  let groupedItems = Array.from(groups.entries()).map(([key, group]) => {
+    const keys = key.split("-");
+    return additionalUniqueProp
+      ? {
+          [uniqueProp]: keys[0],
+          [additionalUniqueProp]: keys[1],
+          items: group.items,
+          sum: group.sum,
+        }
+      : { [uniqueProp]: key, items: group.items, sum: group.sum };
+  });
+
+  groupedItems = groupedItems.sort((a, b) => {
+    if (a[uniqueProp] < b[uniqueProp]) return -1;
+    if (a[uniqueProp] > b[uniqueProp]) return 1;
+    return 0;
+  });
+
+  return groupedItems;
+};
+
 export function DataProvider({ children }: any) {
   const [data, setData] = useState({});
   const [globalNumbers, setGlobalNumbers] = useState<{
@@ -59,12 +107,17 @@ export function DataProvider({ children }: any) {
     empenhado: number;
     liquidado: number;
     pago: number;
+    recursosNovos: number;
+    antecipacaoAdiamento: number;
+    linhaCredito: number;
   }>({} as any);
   const [estadualInvestment, setEstadualInvestment] = useState<{
     anunciado: number;
     empenhado: number;
     liquidado: number;
     pago: number;
+    recursosNovos: number;
+    doacao: number;
   }>({} as any);
 
   useEffect(() => {
@@ -89,19 +142,18 @@ export function DataProvider({ children }: any) {
         "governo",
         "pago"
       );
-
-      const generalInvestment = getUniquePropertyValues(
-        (data as any).detalhamentos,
-        "FASE",
-        "VALOR"
-      );
       const uniqueTypes = getUniquePropertyValues(
         (data as any).geral,
         "governo",
         "anunciado",
         "tipo"
       );
-
+      const uniqueAcoes = groupByUniqueProperty(
+        (data as any).empenhos,
+        "acao",
+        "valorEmpenho"
+      );
+      console.log(uniqueAcoes);
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
         estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000 || 0,
@@ -109,7 +161,9 @@ export function DataProvider({ children }: any) {
           (uniqueGovAnunciado[0]?.["anunciado"] +
             uniqueGovAnunciado[1]?.["anunciado"]) /
           1000000000,
-        investido: generalInvestment[2]?.["VALOR"] / 1000000,
+        investido:
+          (uniqueGovPago[0]?.["pago"] + uniqueGovPago[1]?.["pago"]) /
+          1000000000,
       });
 
       setFederalInvestment({
@@ -117,6 +171,17 @@ export function DataProvider({ children }: any) {
         empenhado: uniqueGovEmpenhado[0]?.["empenhado"],
         liquidado: uniqueGovLiquidado[0]?.["liquidado"],
         pago: uniqueGovPago[0]?.["pago"],
+        recursosNovos: uniqueTypes.find(
+          (el) => el.governo === "Federal" && el.tipo === "Recursos novos"
+        )?.anunciado,
+        antecipacaoAdiamento: uniqueTypes.find(
+          (el) =>
+            el.governo === "Federal" &&
+            el.tipo === "Antecipação de benefícios ou adiamento de tributos"
+        )?.anunciado,
+        linhaCredito: uniqueTypes.find(
+          (el) => el.governo === "Federal" && el.tipo === "Linha de crédito"
+        )?.anunciado,
       });
 
       setEstadualInvestment({
@@ -124,7 +189,14 @@ export function DataProvider({ children }: any) {
         empenhado: uniqueGovEmpenhado[1]?.["empenhado"],
         liquidado: uniqueGovLiquidado[1]?.["liquidado"],
         pago: uniqueGovPago[1]?.["pago"],
+        recursosNovos: uniqueTypes.find(
+          (el) => el.governo === "Estadual" && el.tipo === "Recursos novos"
+        )?.anunciado,
+        doacao: uniqueTypes.find(
+          (el) => el.governo === "Estadual" && el.tipo === "Doação"
+        )?.anunciado,
       });
+
       setGeneralInvestment({
         anunciado:
           uniqueGovAnunciado[0]?.["anunciado"] +

@@ -28,6 +28,7 @@
     #faa316 44.64%,
     #fa7d16 94.61%
   );
+  --gradient-gray: linear-gradient(90deg, #e0e0e0 0%, #adadad 100%);
   --gradient-federal: linear-gradient(135deg, #fcda5f 0%, #e3b305 100%);
   --gradient-estadual: linear-gradient(
     295.54deg,
@@ -218,6 +219,10 @@ a {
   }
 }
 
+.gray_highlight {
+  background: var(--gradient-gray);
+}
+
 .section_title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -271,7 +276,7 @@ a {
 
 .bar_labels_container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 6px;
   margin-top: 5px;
 
@@ -292,6 +297,30 @@ a {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--gray-600);
+    }
+
+    &.linha_credito {
+      .bar_label_color {
+        background-color: #8b0000;
+      }
+    }
+
+    &.novos_recursos {
+      .bar_label_color {
+        background-color: #b8860b;
+      }
+    }
+
+    &.antecipacao_adiantamento {
+      .bar_label_color {
+        background-color: #8a2be2;
+      }
+    }
+
+    &.doacao {
+      .bar_label_color {
+        background-color: #008b8b;
+      }
     }
   }
 }
@@ -422,12 +451,14 @@ a {
 
 .bar_wrapper {
   position: relative;
-  width: 100%;
+  width: calc(100% + 25px);
   min-width: 380px;
   // max-width: 680px;
   height: 100%;
   min-height: 50px;
-  max-height: 50px;
+  max-height: 100px;
+  margin-top: -20px;
+  margin-left: -25px;
 }
 
 .szh-accordion__item-content {

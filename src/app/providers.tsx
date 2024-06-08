@@ -5,7 +5,6 @@ import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDataContext } from "../context/dados";
-import detalhamentos from "../../public/data/detalhamento.json";
 import geral from "../../public/data/geral.json";
 import empenhos from "../../public/data/empenhos.json";
 import liquidadosAndPagos from "../../public/data/liquidadosAndPagos.json";
@@ -20,7 +19,7 @@ export function Providers({ children }: ProvidersProps) {
   const [dataValue, setDataValue] = data;
 
   useEffect(() => {
-    setDataValue({ detalhamentos, geral, empenhos, liquidadosAndPagos });
+    setDataValue({ geral, empenhos, liquidadosAndPagos });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

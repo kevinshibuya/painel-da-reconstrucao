@@ -1,4 +1,4 @@
-export default function EntendaMedidas() {
+export default function Page() {
   return (
     <main className="summary_container">
       <h1 className="summary_title">Entenda as medidas anunciadas</h1>

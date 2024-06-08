@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useEffect } from "react";
@@ -14,6 +15,7 @@ const basePath = "/especiais/painel-da-reconstrucao";
 
 export default function Sidemenu() {
   const pathname = usePathname();
+  const pathNames = pathname.split("/").filter((path) => path);
 
   useEffect(() => {
     const links = document.querySelectorAll("a");
@@ -23,11 +25,11 @@ export default function Sidemenu() {
       const linkPath = parsedUrl.pathname.replace(basePath, "");
       link.classList.remove(styles.active);
 
-      if (linkPath === pathname) {
+      if (linkPath.includes(pathNames[0])) {
         link.classList.add(styles.active);
       }
     });
-  }, [pathname]);
+  }, [pathNames]);
 
   return (
     <aside className={styles.container}>

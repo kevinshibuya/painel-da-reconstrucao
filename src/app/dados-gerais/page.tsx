@@ -27,7 +27,7 @@ import styles from "./page.module.scss";
 // Register ChartJS components using ChartJS.register
 ChartJS.register(ArcElement, Tooltip, LinearScale, CategoryScale, BarElement);
 
-export default function DadosGerais() {
+export default function Page() {
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
   const { data, generalInvestment, federalInvestment, estadualInvestment } =
     useDataContext();

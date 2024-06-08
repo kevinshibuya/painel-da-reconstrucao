@@ -2,7 +2,7 @@
 
 import styles from "./page.module.scss";
 
-export default function EntendaTermos() {
+export default function Page() {
   return (
     <main className="summary_container">
       <h1 className="summary_title">Entenda os termos utilizados</h1>

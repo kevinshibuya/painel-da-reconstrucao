@@ -1,6 +1,7 @@
 "use client";
 
 import GlobalNumbers from "@/components/globalNumbers/GlobalNumbers";
+import groupByUniqueProperty from "@/utils/groupByUniqueProperty";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const DataContext = createContext({} as any);
@@ -40,54 +41,6 @@ export const getUniquePropertyValues = (
   return uniqueValues;
 };
 
-export const groupByUniqueProperty = (
-  array: any[],
-  uniqueProp: string,
-  valueProp: string,
-  additionalUniqueProp?: string
-) => {
-  const groups = new Map<string, { items: any[]; sum: number }>();
-
-  array.forEach((item) => {
-    const uniqueKey = additionalUniqueProp
-      ? `${item[uniqueProp]}-${item[additionalUniqueProp]}`
-      : item[uniqueProp];
-    const value = item[valueProp];
-
-    if (groups.has(uniqueKey)) {
-      const group = groups.get(uniqueKey) as {
-        items: any[];
-        sum: number;
-      };
-
-      group.items.push(item);
-      group.sum += value;
-    } else {
-      groups.set(uniqueKey, { items: [item], sum: value });
-    }
-  });
-
-  let groupedItems = Array.from(groups.entries()).map(([key, group]) => {
-    const keys = key.split("-");
-    return additionalUniqueProp
-      ? {
-          [uniqueProp]: keys[0],
-          [additionalUniqueProp]: keys[1],
-          items: group.items,
-          sum: group.sum,
-        }
-      : { [uniqueProp]: key, items: group.items, sum: group.sum };
-  });
-
-  groupedItems = groupedItems.sort((a, b) => {
-    if (a[uniqueProp] < b[uniqueProp]) return -1;
-    if (a[uniqueProp] > b[uniqueProp]) return 1;
-    return 0;
-  });
-
-  return groupedItems;
-};
-
 export function DataProvider({ children }: any) {
   const [data, setData] = useState({});
   const [globalNumbers, setGlobalNumbers] = useState<{
@@ -95,12 +48,6 @@ export function DataProvider({ children }: any) {
     estadual: number;
     repasses: number;
     investido: number;
-  }>({} as any);
-  const [generalInvestment, setGeneralInvestment] = useState<{
-    anunciado: number;
-    empenhado: number;
-    liquidado: number;
-    pago: number;
   }>({} as any);
   const [federalInvestment, setFederalInvestment] = useState<{
     anunciado: number;
@@ -119,6 +66,14 @@ export function DataProvider({ children }: any) {
     recursosNovos: number;
     doacao: number;
   }>({} as any);
+  const [generalInvestment, setGeneralInvestment] = useState<{
+    anunciado: number;
+    empenhado: number;
+    liquidado: number;
+    pago: number;
+  }>({} as any);
+  const [acoesGoverno, setAcoesGoverno] = useState([] as any);
+  const [selectedAcao, setSelectedAcao] = useState("");
 
   useEffect(() => {
     if ((data as any).geral) {
@@ -153,7 +108,7 @@ export function DataProvider({ children }: any) {
         "acao",
         "valorEmpenho"
       );
-      console.log(uniqueAcoes);
+      // console.log(uniqueAcoes);
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
         estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000 || 0,
@@ -209,6 +164,8 @@ export function DataProvider({ children }: any) {
           uniqueGovLiquidado[1]?.["liquidado"],
         pago: uniqueGovPago[0]?.["pago"] + uniqueGovPago[1]?.["pago"],
       });
+
+      setAcoesGoverno(uniqueAcoes);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [(data as any).geral]);
@@ -221,6 +178,8 @@ export function DataProvider({ children }: any) {
         generalInvestment: [generalInvestment, setGeneralInvestment],
         federalInvestment: [federalInvestment, setFederalInvestment],
         estadualInvestment: [estadualInvestment, setEstadualInvestment],
+        acoesGoverno: [acoesGoverno, setAcoesGoverno],
+        selectedAcao: [selectedAcao, setSelectedAcao],
       }}
     >
       {children}

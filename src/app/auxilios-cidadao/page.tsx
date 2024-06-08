@@ -1,6 +1,6 @@
 "use client";
 
-export default function Transfers() {
+export default function Page() {
   return (
     <main className="summary_container">
       <h1 className="summary_title">Como cidadãos solicitam auxílios</h1>

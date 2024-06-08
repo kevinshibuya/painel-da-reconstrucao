@@ -1,4 +1,4 @@
-export default function ComoFunciona() {
+export default function Page() {
   return (
     <main className="summary_container">
       <h1 className="summary_title">Como funciona o painel</h1>

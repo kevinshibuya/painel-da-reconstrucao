@@ -7,9 +7,6 @@ export default function Page() {
     <main className="summary_container">
       <h1 className="summary_title">Entenda os termos utilizados</h1>
       <div className="content_block">
-        <p className="summary_subtitle">
-          Entenda o significado dos principais termos usados no painel
-        </p>
         <p>
           <span>Emendas parlamentares:</span> as emendas feitas ao Orçamento
           Geral da União são propostas por meio das quais os parlamentares podem

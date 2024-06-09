@@ -392,7 +392,7 @@ export default function Sidemenu() {
           </svg>
           Como empresas solicitam benefícios
         </Link>
-        <Link href="/calendar">
+        {/* <Link href="/calendar">
           <svg
             className={styles.stroke}
             width="24"
@@ -445,7 +445,7 @@ export default function Sidemenu() {
             </defs>
           </svg>
           Leia mais sobre reconstrução do RS
-        </Link>
+        </Link> */}
       </nav>
     </aside>
   );

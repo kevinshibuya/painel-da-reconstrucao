@@ -21,18 +21,12 @@ export default function Layout({
   return (
     <main className={styles.container}>
       <h1 className="big_section_title">
-        {pathNames.length === 1
-          ? "Ações do governo"
-          : selectedAcaoValue
-          ? `${selectedAcaoValue}`
-          : `${pathNames
-              .filter((path, index) => index !== 0)[0]
-              .replaceAll("-", " ")}`}
+        {pathNames.length === 1 ? "Ações do governo" : "Empenhos"}
       </h1>
       <Breadcrumb
         homeElement={"Ações do governo"}
         separator={<span> / </span>}
-        activeClasses="text-amber-500"
+        activeClasses="active_breadcrumb"
         containerClasses="breadcrumb_container"
         listClasses="hover:underline mr-2 font-bold"
         capitalizeLinks

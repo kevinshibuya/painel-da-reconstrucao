@@ -2,22 +2,44 @@
 
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import { useDataContext } from "@/context/dados";
-import { Accordion, AccordionItem } from "@szhsin/react-accordion";
+import groupByUniqueProperty from "@/utils/groupByUniqueProperty";
+import {
+  Accordion,
+  AccordionItem,
+  ControlledAccordion,
+  useAccordionProvider,
+} from "@szhsin/react-accordion";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
+function parseDateString(dateString: string): any {
+  const [day, month, year] = dateString.split("/").map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based in JavaScript Date
+}
+
 export default function AcaoGoverno(params: any) {
   const { acoesGoverno } = useDataContext();
+  const providerValue = useAccordionProvider({
+    allowMultiple: true,
+    transition: true,
+    transitionTimeout: 100,
+  });
   const [acoesGovernoValue, setAcoesGovernoValue] = acoesGoverno;
   const [acaoGoverno, setAcaoGoverno] = useState([] as any);
   const [loading, setLoading] = useState(true);
+  // Destructuring `toggle` and `toggleAll` from `providerValue`
 
   useEffect(() => {
     if (acoesGovernoValue && acoesGovernoValue.length > 0) {
       const filteredAcoes = acoesGovernoValue.filter(
         (acao: any) => params.slug.replaceAll("-", " ") === acao.acao
       );
-      setAcaoGoverno(filteredAcoes);
+      console.log(filteredAcoes);
+      const sortedAcoes = filteredAcoes[0].items.sort(
+        (a: any, b: any) =>
+          parseDateString(b.dataEmpenho) - parseDateString(a.dataEmpenho)
+      );
+      setAcaoGoverno(sortedAcoes);
       setLoading(false); // Set loading to false when data is ready
     }
   }, [acoesGovernoValue, params]);
@@ -27,15 +49,38 @@ export default function AcaoGoverno(params: any) {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <PaginatedItems itemsPerPage={5} data={acaoGoverno[0].items} />
+        <PaginatedItems
+          itemsPerPage={5}
+          data={acaoGoverno}
+          providerValue={providerValue}
+        />
       )}
     </div>
   );
 }
 
-function Items({ currentItems }: any) {
+function Items({ currentItems, providerValue }: any) {
+  const { data } = useDataContext();
+  const [dataValue, setDataValue] = data;
+  const [matchingEmpenho, setMatchingEmpenho] = useState([] as any);
+
   var options = { style: "currency", currency: "BRL" };
   var formatter = new Intl.NumberFormat("pt-BR", options);
+
+  useEffect(() => {
+    if (currentItems && dataValue.liquidadosAndPagos) {
+      let matchingEmpenho: any = [];
+      currentItems.forEach((item: any) => {
+        dataValue.liquidadosAndPagos.forEach((el: any) => {
+          if (el.docEmpenho === item.docEmpenho) {
+            matchingEmpenho.push(el);
+          }
+        });
+      });
+      console.log("matchingEmpenho ", matchingEmpenho);
+      setMatchingEmpenho(matchingEmpenho);
+    }
+  }, [currentItems, dataValue.liquidadosAndPagos]);
   console.log("Items", currentItems);
 
   return (
@@ -81,7 +126,7 @@ function Items({ currentItems }: any) {
           };
 
           return (
-            <Accordion key={i} transition transitionTimeout={250}>
+            <ControlledAccordion key={i} providerValue={providerValue}>
               <AccordionItem
                 header={
                   <div className="accordion_header_wrapper">
@@ -101,22 +146,36 @@ function Items({ currentItems }: any) {
                   </div>
                 }
               >
-                <div className="bar_wrapper"></div>
+                <div className="description_wrapper">
+                  <h1>
+                    <span>Despesa </span>
+                    {`${item.especificacaoAreaDeAtuacao} - ${item.elementoDeDespesa}`}
+                  </h1>
+                  <h1>
+                    <span>Observação </span>
+                    {item.observacaoEmpenho}
+                  </h1>
+                  <h1>
+                    <span>Localizador </span>
+                    {item.localizador}
+                  </h1>
+                </div>
               </AccordionItem>
-            </Accordion>
+            </ControlledAccordion>
           );
         })}
     </div>
   );
 }
 
-function PaginatedItems({ itemsPerPage, data }: any) {
+function PaginatedItems({ itemsPerPage, data, providerValue }: any) {
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
+  const { toggleAll } = providerValue;
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -128,13 +187,14 @@ function PaginatedItems({ itemsPerPage, data }: any) {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event: any) => {
+    toggleAll(false);
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
 
   return (
     <>
-      <Items currentItems={currentItems} />
+      <Items currentItems={currentItems} providerValue={providerValue} />
       <ReactPaginate
         nextLabel="próximo >"
         onPageChange={handlePageClick}

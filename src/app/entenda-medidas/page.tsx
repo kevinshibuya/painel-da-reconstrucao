@@ -2,8 +2,8 @@ export default function Page() {
   return (
     <main className="summary_container">
       <h1 className="summary_title">Entenda as medidas anunciadas</h1>
-      <h1 className="summary_subtitle">Governo federal</h1>
       <div className="content_block">
+        <h1 className="summary_subtitle">Governo federal</h1>
         <p>
           O governo federal dividiu as medidas de apoio ao Estado já anunciadas
           em duas categorias: recursos novos e antecipação de benefícios e
@@ -49,8 +49,8 @@ export default function Page() {
           do FGTS por parte das empresas.
         </p>
       </div>
-      <h1 className="summary_subtitle">Governo estadual</h1>
       <div className="content_block">
+        <h1 className="summary_subtitle">Governo estadual</h1>
         <p>
           As medidas de apoio já anunciadas pelo governo estadual, que integram
           o Plano Rio Grande, também podem ser divididas em duas categorias

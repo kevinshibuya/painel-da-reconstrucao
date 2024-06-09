@@ -143,6 +143,7 @@ export default function Page() {
       toolbar: {
         show: false,
       },
+      fontFamily: "Poppins, sans-serif",
     },
     plotOptions: {
       bar: {

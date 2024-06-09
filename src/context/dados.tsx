@@ -111,7 +111,7 @@ export function DataProvider({ children }: any) {
       // console.log(uniqueAcoes);
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
-        estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000 || 0,
+        estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000000 || 0,
         repasses:
           (uniqueGovAnunciado[0]?.["anunciado"] +
             uniqueGovAnunciado[1]?.["anunciado"]) /

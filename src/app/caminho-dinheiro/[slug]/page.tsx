@@ -22,6 +22,5 @@ export function generateStaticParams() {
 }
 
 export default function Page({ params }: any) {
-  console.log("hiii", params);
   return <AcaoGoverno slug={params.slug} data={params.data} />;
 }

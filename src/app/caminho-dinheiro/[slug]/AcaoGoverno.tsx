@@ -157,7 +157,7 @@ function Items({ currentItems, providerValue }: any) {
                   </h1>
                   <h1>
                     <span>Localizador </span>
-                    {item.localizador}
+                    {item.localizardor}
                   </h1>
                 </div>
               </AccordionItem>

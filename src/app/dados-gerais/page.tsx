@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -13,19 +15,30 @@ import dynamic from "next/dynamic";
 import {
   Chart as ChartJS,
   ArcElement,
-  Tooltip,
+  Tooltip as ChartTooltip,
   LinearScale,
   CategoryScale,
   BarElement,
 } from "chart.js";
-import { Doughnut, Bar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import CountUp from "react-countup";
 import { useDataContext } from "@/context/dados";
+import { Tooltip } from "@nextui-org/react";
 
 import styles from "./page.module.scss";
+import tooltip from "../../../public/icons/tooltip_icon.svg";
+import tooltipLighter from "../../../public/icons/tooltip_lighter_icon.svg";
+import tooltipDark from "../../../public/icons/tooltip_dark_icon.svg";
+import TooltipWrapper from "./TooltipWrapper";
 
 // Register ChartJS components using ChartJS.register
-ChartJS.register(ArcElement, Tooltip, LinearScale, CategoryScale, BarElement);
+ChartJS.register(
+  ArcElement,
+  ChartTooltip,
+  LinearScale,
+  CategoryScale,
+  BarElement
+);
 
 export default function Page() {
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -39,9 +52,9 @@ export default function Page() {
 
   const dataFederal = {
     labels: [
-      "Valor prometido",
-      "Valor empenhado",
-      "Valor liquidado",
+      "Promessa restante",
+      // "Valor empenhado",
+      // "Valor liquidado",
       "Valor pago",
     ],
     datasets: [
@@ -50,17 +63,23 @@ export default function Page() {
         data: [
           Math.round(
             (federalInvestmentValue.anunciado -
-              (federalInvestmentValue.empenhado +
-                federalInvestmentValue.liquidado +
-                federalInvestmentValue.pago)) *
+              federalInvestmentValue.empenhado) *
               100
           ) / 100,
-          Math.round(federalInvestmentValue.empenhado * 100) / 100,
-          Math.round(federalInvestmentValue.liquidado * 100) / 100,
+          // Math.round(
+          //   (federalInvestmentValue.empenhado -
+          //     federalInvestmentValue.liquidado) *
+          //     100
+          // ) / 100,
+          // Math.round(
+          //   (federalInvestmentValue.liquidado - federalInvestmentValue.pago) *
+          //     100
+          // ) / 100,
           Math.round(federalInvestmentValue.pago * 100) / 100,
         ],
-        backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 8,
+        backgroundColor: ["#707070", "#05cd99"],
+        // backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         borderColor: "#707070",
         hoverOffset: 2,
       },
@@ -69,9 +88,9 @@ export default function Page() {
 
   const dataEstadual = {
     labels: [
-      "Valor prometido",
-      "Valor empenhado",
-      "Valor liquidado",
+      "Promessa restante",
+      // "Valor empenhado",
+      // "Valor liquidado",
       "Valor pago",
     ],
     datasets: [
@@ -80,17 +99,23 @@ export default function Page() {
         data: [
           Math.round(
             (estadualInvestmentValue.anunciado -
-              (estadualInvestmentValue.empenhado +
-                estadualInvestmentValue.liquidado +
-                estadualInvestmentValue.pago)) *
+              estadualInvestmentValue.empenhado) *
               100
           ) / 100,
-          Math.round(estadualInvestmentValue.empenhado * 100) / 100,
-          Math.round(estadualInvestmentValue.liquidado * 100) / 100,
+          // Math.round(
+          //   (estadualInvestmentValue.empenhado -
+          //     estadualInvestmentValue.liquidado) *
+          //     100
+          // ) / 100,
+          // Math.round(
+          //   (estadualInvestmentValue.liquidado - estadualInvestmentValue.pago) *
+          //     100
+          // ) / 100,
           Math.round(estadualInvestmentValue.pago * 100) / 100,
         ],
-        backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 8,
+        backgroundColor: ["#707070", "#05cd99"],
+        // backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         borderColor: "#707070",
         hoverOffset: 2,
       },
@@ -99,9 +124,9 @@ export default function Page() {
 
   const dataGeral = {
     labels: [
-      "Valor prometido",
-      "Valor empenhado",
-      "Valor liquidado",
+      "Promessa restante",
+      // "Valor empenhado",
+      // "Valor liquidado",
       "Valor pago",
     ],
     datasets: [
@@ -110,17 +135,23 @@ export default function Page() {
         data: [
           Math.round(
             (generalInvestmentValue.anunciado -
-              (generalInvestmentValue.empenhado +
-                generalInvestmentValue.liquidado +
-                generalInvestmentValue.pago)) *
+              generalInvestmentValue.empenhado) *
               100
           ) / 100,
-          Math.round(generalInvestmentValue.empenhado * 100) / 100,
-          Math.round(generalInvestmentValue.liquidado * 100) / 100,
+          // Math.round(
+          //   (generalInvestmentValue.empenhado -
+          //     generalInvestmentValue.liquidado) *
+          //     100
+          // ) / 100,
+          // Math.round(
+          //   (generalInvestmentValue.liquidado - generalInvestmentValue.pago) *
+          //     100
+          // ) / 100,
           Math.round(generalInvestmentValue.pago * 100) / 100,
         ],
-        backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
-        borderWidth: 8,
+        backgroundColor: ["#707070", "#05cd99"],
+        // backgroundColor: ["#707070", "#fa9716", "#4318ff", "#05cd99"],
+        borderWidth: 0,
         borderColor: "#707070",
         hoverOffset: 2,
       },
@@ -133,6 +164,16 @@ export default function Page() {
     rotation: -90,
     circumference: 180,
     maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        bodyFont: {
+          family: "Poppins, sans-serif", // Add your font here to change the font of your tooltip body
+        },
+        titleFont: {
+          family: "Poppins, sans-serif", // Add your font here to change the font of your tooltip title
+        },
+      },
+    },
   };
 
   const apexBarOptions: any = {
@@ -181,6 +222,12 @@ export default function Page() {
 
           return formatter.format(val);
         },
+      },
+      fixed: {
+        enabled: true,
+        position: "topRight",
+        offsetX: 0,
+        offsetY: 0,
       },
     },
     fill: {
@@ -294,7 +341,6 @@ export default function Page() {
               <div className="caption_title">
                 <div className="caption_color"></div>
                 <h1>Valor prometido</h1>
-                <div className="caption_tooltip"></div>
               </div>
               {federalInvestmentValue.anunciado ? (
                 <CountUp
@@ -319,69 +365,15 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
-            <div className="caption_wrapper comitted_value">
-              <div className="caption_title">
-                <div className="caption_color"></div>
-                <h1>Valor empenhado</h1>
-                <div className="caption_tooltip"></div>
-              </div>
-              {federalInvestmentValue.empenhado ? (
-                <CountUp
-                  start={0}
-                  end={
-                    federalInvestmentValue.empenhado
-                      ? federalInvestmentValue.empenhado
-                      : 0.0
-                  }
-                  duration={1}
-                  separator="."
-                  decimal=","
-                  prefix="R$ "
-                  decimals={2}
-                  delay={0}
-                >
-                  {({ countUpRef }) => (
-                    <span ref={countUpRef} className="caption_value" />
-                  )}
-                </CountUp>
-              ) : (
-                <h1 className="caption_value">R$ 0,00</h1>
-              )}
-            </div>
-            <div className="caption_wrapper settled_value">
-              <div className="caption_title">
-                <div className="caption_color"></div>
-                <h1>Valor liquidado</h1>
-                <div className="caption_tooltip"></div>
-              </div>
-              {federalInvestmentValue.liquidado ? (
-                <CountUp
-                  start={0}
-                  end={
-                    federalInvestmentValue.liquidado
-                      ? federalInvestmentValue.liquidado
-                      : 0.0
-                  }
-                  duration={1}
-                  separator="."
-                  decimal=","
-                  prefix="R$ "
-                  decimals={2}
-                  delay={0}
-                >
-                  {({ countUpRef }) => (
-                    <span ref={countUpRef} className="caption_value" />
-                  )}
-                </CountUp>
-              ) : (
-                <h1 className="caption_value">R$ 0,00</h1>
-              )}
-            </div>
             <div className="caption_wrapper paid_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
                 <h1>Valor pago</h1>
-                <div className="caption_tooltip"></div>
+                <TooltipWrapper
+                  content="Dinheiro depositado na conta do beneficiário."
+                  img={tooltip}
+                  size={18}
+                />
               </div>
               {federalInvestmentValue.pago ? (
                 <CountUp
@@ -406,12 +398,85 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
+            <div className="caption_wrapper sub_caption_wrapper comitted_value">
+              <div className="caption_title">
+                {/* <div className="caption_color"></div> */}
+                <h1>Valor empenhado</h1>
+                <TooltipWrapper
+                  content="Dinheiro reservado pelo governo."
+                  img={tooltip}
+                  size={16}
+                />
+              </div>
+              {federalInvestmentValue.empenhado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    federalInvestmentValue.empenhado
+                      ? federalInvestmentValue.empenhado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                  delay={0}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
+            </div>
+            <div className="caption_wrapper sub_caption_wrapper settled_value">
+              <div className="caption_title">
+                {/* <div className="caption_color"></div> */}
+                <h1>Valor liquidado</h1>
+                <TooltipWrapper
+                  content="Verba liberada após confirmação da entrega do projeto."
+                  img={tooltip}
+                  size={16}
+                />
+              </div>
+              {federalInvestmentValue.liquidado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    federalInvestmentValue.liquidado
+                      ? federalInvestmentValue.liquidado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                  delay={0}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
+            </div>
           </div>
           <div className={styles.canvas_wrapper}>
             <Doughnut data={dataFederal} options={options} />
           </div>
         </div>
-        <h1 className="bar_title section_title">Entenda os valores</h1>
+        <h1 className="bar_title section_title">
+          Entenda os valores
+          <TooltipWrapper
+            content="Os aportes do governo federal envolvem cobertura de garantias para empréstimos, ajuste no fluxo de caixa com antecipação de benefícios e adiamento de tributos e também verbas que não estavam previstas no orçamento e que irão para obras e auxílios, por exemplo."
+            img={tooltipDark}
+            size={22}
+          />
+        </h1>
         <div className="bar_wrapper">
           <Chart
             options={apexBarOptions}
@@ -424,16 +489,35 @@ export default function Page() {
         <div className="bar_labels_container">
           <div className="bar_label_wrapper linha_credito">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Linhas de crédito</p>
+            <p className="bar_label">
+              Linhas de crédito
+              <TooltipWrapper
+                content="Cobertura de garantias para empréstimos com condições especiais voltados para empresas de todos os portes e produtores rurais."
+                img={tooltipDark}
+                size={16}
+              />
+            </p>
           </div>
           <div className="bar_label_wrapper novos_recursos">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Recursos novos</p>
+            <p className="bar_label">
+              Recursos novos
+              <TooltipWrapper
+                content="Verbas que não estavam previstas no orçamento e que irão para obras e Auxílio Reconstrução, por exemplo."
+                img={tooltipDark}
+                size={16}
+              />
+            </p>
           </div>
           <div className="bar_label_wrapper antecipacao_adiantamento">
             <div className="bar_label_color"></div>
             <p className="bar_label">
               Antecipação de benefícios ou adiamento de tributos
+              <TooltipWrapper
+                content="Bolsa Família, restituição do Imposto de Renda e 13º de aposentados são alguns dos exemplo de benefícios antecipados. O pagamento de alguns tributos foi postergado."
+                img={tooltipDark}
+                size={16}
+              />
             </p>
           </div>
         </div>
@@ -508,7 +592,6 @@ export default function Page() {
               <div className="caption_title">
                 <div className="caption_color"></div>
                 <h1>Valor prometido</h1>
-                <div className="caption_tooltip"></div>
               </div>
               {estadualInvestmentValue.anunciado ? (
                 <CountUp
@@ -533,69 +616,15 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
-            <div className="caption_wrapper comitted_value">
-              <div className="caption_title">
-                <div className="caption_color"></div>
-                <h1>Valor empenhado</h1>
-                <div className="caption_tooltip"></div>
-              </div>
-              {estadualInvestmentValue.empenhado ? (
-                <CountUp
-                  start={0}
-                  end={
-                    estadualInvestmentValue.empenhado
-                      ? estadualInvestmentValue.empenhado
-                      : 0.0
-                  }
-                  duration={1}
-                  separator="."
-                  decimal=","
-                  prefix="R$ "
-                  decimals={2}
-                  delay={0}
-                >
-                  {({ countUpRef }) => (
-                    <span ref={countUpRef} className="caption_value" />
-                  )}
-                </CountUp>
-              ) : (
-                <h1 className="caption_value">R$ 0,00</h1>
-              )}
-            </div>
-            <div className="caption_wrapper settled_value">
-              <div className="caption_title">
-                <div className="caption_color"></div>
-                <h1>Valor liquidado</h1>
-                <div className="caption_tooltip"></div>
-              </div>
-              {estadualInvestmentValue.liquidado ? (
-                <CountUp
-                  start={0}
-                  end={
-                    estadualInvestmentValue.liquidado
-                      ? estadualInvestmentValue.liquidado
-                      : 0.0
-                  }
-                  duration={1}
-                  separator="."
-                  decimal=","
-                  prefix="R$ "
-                  decimals={2}
-                  delay={0}
-                >
-                  {({ countUpRef }) => (
-                    <span ref={countUpRef} className="caption_value" />
-                  )}
-                </CountUp>
-              ) : (
-                <h1 className="caption_value">R$ 0,00</h1>
-              )}
-            </div>
             <div className="caption_wrapper paid_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
                 <h1>Valor pago</h1>
-                <div className="caption_tooltip"></div>
+                <TooltipWrapper
+                  content="Dinheiro depositado na conta do beneficiário."
+                  img={tooltip}
+                  size={18}
+                />
               </div>
               {estadualInvestmentValue.pago ? (
                 <CountUp
@@ -620,12 +649,85 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
+            <div className="caption_wrapper sub_caption_wrapper comitted_value">
+              <div className="caption_title">
+                {/* <div className="caption_color"></div> */}
+                <h1>Valor empenhado</h1>
+                <TooltipWrapper
+                  content="Dinheiro reservado pelo governo."
+                  img={tooltip}
+                  size={16}
+                />
+              </div>
+              {estadualInvestmentValue.empenhado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    estadualInvestmentValue.empenhado
+                      ? estadualInvestmentValue.empenhado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                  delay={0}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
+            </div>
+            <div className="caption_wrapper sub_caption_wrapper settled_value">
+              <div className="caption_title">
+                {/* <div className="caption_color"></div> */}
+                <h1>Valor liquidado</h1>
+                <TooltipWrapper
+                  content="Verba liberada após confirmação da entrega do projeto."
+                  img={tooltip}
+                  size={16}
+                />
+              </div>
+              {estadualInvestmentValue.liquidado ? (
+                <CountUp
+                  start={0}
+                  end={
+                    estadualInvestmentValue.liquidado
+                      ? estadualInvestmentValue.liquidado
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                  delay={0}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
+            </div>
           </div>
           <div className={styles.canvas_wrapper}>
             <Doughnut data={dataEstadual} options={options} />
           </div>
         </div>
-        <h1 className="bar_title section_title">Entenda os valores</h1>
+        <h1 className="bar_title section_title">
+          Entenda os valores
+          <TooltipWrapper
+            content="Os aportes do governo federal envolvem cobertura de garantias para empréstimos, ajuste no fluxo de caixa com antecipação de benefícios e adiamento de tributos e também verbas que não estavam previstas no orçamento e que irão para obras e auxílios, por exemplo."
+            img={tooltipDark}
+            size={22}
+          />
+        </h1>
         <div className="bar_wrapper">
           <Chart
             options={apexBarOptions}
@@ -638,11 +740,25 @@ export default function Page() {
         <div className="bar_labels_container">
           <div className="bar_label_wrapper novos_recursos">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Recursos novos</p>
+            <p className="bar_label">
+              Recursos novos
+              <TooltipWrapper
+                content="Verbas que não estavam previstas no orçamento e que irão para obras e ações como o programa Volta por Cima."
+                img={tooltipDark}
+                size={16}
+              />
+            </p>
           </div>
           <div className="bar_label_wrapper doacao">
             <div className="bar_label_color"></div>
-            <p className="bar_label">Doação</p>
+            <p className="bar_label">
+              Doação
+              <TooltipWrapper
+                content="Dinheiro doado por meio do Pix SOS RS e que tem sua aplicação coordenada pelo governo estadual."
+                img={tooltipDark}
+                size={16}
+              />
+            </p>
           </div>
         </div>
       </div>
@@ -716,7 +832,6 @@ export default function Page() {
               <div className="caption_title">
                 <div className="caption_color"></div>
                 <h1>Valor prometido</h1>
-                <div className="caption_tooltip"></div>
               </div>
               {generalInvestmentValue.anunciado ? (
                 <CountUp
@@ -741,11 +856,48 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
-            <div className="caption_wrapper comitted_value">
+            <div className="caption_wrapper paid_value">
               <div className="caption_title">
                 <div className="caption_color"></div>
+                <h1>Valor pago</h1>
+                <TooltipWrapper
+                  content="Dinheiro depositado na conta do beneficiário."
+                  img={tooltip}
+                  size={18}
+                />
+              </div>
+              {generalInvestmentValue.pago ? (
+                <CountUp
+                  start={0}
+                  end={
+                    generalInvestmentValue.pago
+                      ? generalInvestmentValue.pago
+                      : 0.0
+                  }
+                  duration={1}
+                  separator="."
+                  decimal=","
+                  prefix="R$ "
+                  decimals={2}
+                  delay={0}
+                >
+                  {({ countUpRef }) => (
+                    <span ref={countUpRef} className="caption_value" />
+                  )}
+                </CountUp>
+              ) : (
+                <h1 className="caption_value">R$ 0,00</h1>
+              )}
+            </div>
+            <div className="caption_wrapper sub_caption_wrapper comitted_value">
+              <div className="caption_title">
+                {/* <div className="caption_color"></div> */}
                 <h1>Valor empenhado</h1>
-                <div className="caption_tooltip"></div>
+                <TooltipWrapper
+                  content="Dinheiro reservado pelo governo."
+                  img={tooltip}
+                  size={16}
+                />
               </div>
               {generalInvestmentValue.empenhado ? (
                 <CountUp
@@ -770,11 +922,15 @@ export default function Page() {
                 <h1 className="caption_value">R$ 0,00</h1>
               )}
             </div>
-            <div className="caption_wrapper settled_value">
+            <div className="caption_wrapper sub_caption_wrapper settled_value">
               <div className="caption_title">
-                <div className="caption_color"></div>
+                {/* <div className="caption_color"></div> */}
                 <h1>Valor liquidado</h1>
-                <div className="caption_tooltip"></div>
+                <TooltipWrapper
+                  content="Verba liberada após confirmação da entrega do projeto."
+                  img={tooltip}
+                  size={16}
+                />
               </div>
               {generalInvestmentValue.liquidado ? (
                 <CountUp
@@ -782,35 +938,6 @@ export default function Page() {
                   end={
                     generalInvestmentValue.liquidado
                       ? generalInvestmentValue.liquidado
-                      : 0.0
-                  }
-                  duration={1}
-                  separator="."
-                  decimal=","
-                  prefix="R$ "
-                  decimals={2}
-                  delay={0}
-                >
-                  {({ countUpRef }) => (
-                    <span ref={countUpRef} className="caption_value" />
-                  )}
-                </CountUp>
-              ) : (
-                <h1 className="caption_value">R$ 0,00</h1>
-              )}
-            </div>
-            <div className="caption_wrapper paid_value">
-              <div className="caption_title">
-                <div className="caption_color"></div>
-                <h1>Valor pago</h1>
-                <div className="caption_tooltip"></div>
-              </div>
-              {generalInvestmentValue.pago ? (
-                <CountUp
-                  start={0}
-                  end={
-                    generalInvestmentValue.pago
-                      ? generalInvestmentValue.pago
                       : 0.0
                   }
                   duration={1}

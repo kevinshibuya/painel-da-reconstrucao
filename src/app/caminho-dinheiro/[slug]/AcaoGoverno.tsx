@@ -34,11 +34,11 @@ export default function AcaoGoverno(params: any) {
       const filteredAcoes = acoesGovernoValue.filter(
         (acao: any) => params.slug.replaceAll("-", " ") === acao.acao
       );
-      console.log(filteredAcoes);
       const sortedAcoes = filteredAcoes[0].items.sort(
         (a: any, b: any) =>
           parseDateString(b.dataEmpenho) - parseDateString(a.dataEmpenho)
       );
+
       setAcaoGoverno(sortedAcoes);
       setLoading(false); // Set loading to false when data is ready
     }
@@ -63,7 +63,7 @@ function Items({ currentItems, providerValue }: any) {
   const { data } = useDataContext();
   const [dataValue, setDataValue] = data;
   const [matchingEmpenho, setMatchingEmpenho] = useState([] as any);
-
+  console.log(currentItems);
   var options = { style: "currency", currency: "BRL" };
   var formatter = new Intl.NumberFormat("pt-BR", options);
 
@@ -77,11 +77,9 @@ function Items({ currentItems, providerValue }: any) {
           }
         });
       });
-      console.log("matchingEmpenho ", matchingEmpenho);
       setMatchingEmpenho(matchingEmpenho);
     }
   }, [currentItems, dataValue.liquidadosAndPagos]);
-  console.log("Items", currentItems);
 
   return (
     <div className="items">
@@ -196,12 +194,12 @@ function PaginatedItems({ itemsPerPage, data, providerValue }: any) {
     <>
       <Items currentItems={currentItems} providerValue={providerValue} />
       <ReactPaginate
-        nextLabel="próximo >"
+        nextLabel=">"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
         pageCount={pageCount}
-        previousLabel="< anterior"
+        previousLabel="<"
         pageClassName="page-item"
         pageLinkClassName="page-link"
         previousClassName="page-item"

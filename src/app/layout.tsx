@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { useEffect, useState } from "react";
 
 import "./globals.scss";
 
-import Sidemenu from "@/components/sidemenu/Sidemenu";
-import Header from "@/components/header/Header";
-import GlobalNumbers from "@/components/globalNumbers/GlobalNumbers";
 import { Providers } from "./providers";
 import { DataProvider } from "@/context/dados";
+import AppContainer from "./appContainer";
+import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const poppins = Poppins({
   weight: ["400", "500", "700"],
@@ -32,17 +31,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-5NNQ745" />
       <body className={poppins.className}>
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="
+https://www.googletagmanager.com/ns.html?id=GTM-5NNQ745"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+          }}
+        />
         <DataProvider>
           <Providers>
-            <div id="app">
-              <Sidemenu />
-              <main>
-                <Header />
-                <GlobalNumbers />
-                {children}
-              </main>
-            </div>
+            <AppContainer>{children}</AppContainer>
           </Providers>
         </DataProvider>
       </body>

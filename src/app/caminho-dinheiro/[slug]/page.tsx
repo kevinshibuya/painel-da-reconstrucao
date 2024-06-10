@@ -13,8 +13,6 @@ export function generateStaticParams() {
     "valorEmpenho"
   );
 
-  // console.log(uniqueAcoes);
-
   return uniqueAcoes.map((acao: any) => ({
     slug: acao.acao.replaceAll(" ", "-"),
     data: uniqueAcoes,

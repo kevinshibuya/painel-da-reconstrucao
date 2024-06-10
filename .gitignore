@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+/painel-da-reconstrucao/
 
 # production
 /build

@@ -17,13 +17,6 @@ export default function Page() {
           projeto de lei orçamentária enviado pelo Executivo.
         </p>
         <p>
-          <span>Linhas de crédito:</span> são recursos operados por instituições
-          financeiras para pessoas físicas ou empresas na forma de empréstimos
-          ou financiamentos. Para empresas, podem se destinar ao aumento do
-          capital de giro, investimentos em maquinários e equipamentos ou
-          imóveis.
-        </p>
-        <p>
           <span>Medida provisória:</span> ato normativo de iniciativa exclusiva
           do presidente da República, com força de lei, que pode ser expedido em
           caso de urgência e relevância. Produz efeitos imediatos, mas depende
@@ -58,27 +51,6 @@ export default function Page() {
           a implementar o aumento da capacidade produtiva, a geração de empregos
           e a elevação da renda, disponibilizando linhas de crédito adequadas às
           necessidades dos agricultores familiares.
-        </p>
-        <p>
-          <span>Valor empenhado:</span> é o primeiro estágio da despesa.
-          Consiste na reserva de dotação orçamentária, ou seja, reserva de
-          valores monetários autorizados para atender um fim específico. O
-          empenho é registrado no momento da contratação do serviço, aquisição
-          do material ou bem, obra ou amortização da dívida.
-        </p>
-        <p>
-          <span>Valor liquidado:</span> é o segundo estágio da execução da
-          despesa. Consiste na verificação do direito adquirido pelo credor,
-          tendo por base os títulos e documentos comprobatórios do respectivo
-          crédito. É nesse momento que será verificada a prestação dos serviços
-          ou a entrega dos bens, ou ainda, a realização da obra. Envolve,
-          portanto, todos os atos de verificação e conferência, desde a entrega
-          do material ou a prestação do serviço até o reconhecimento da despesa.
-        </p>
-        <p>
-          <span>Valor pago:</span> último estágio da execução da despesa. É o
-          valor efetivamente entregue ao credor. Esse pagamento normalmente é
-          efetuado por meio de crédito em conta bancária do favorecido.
         </p>
       </div>
     </main>

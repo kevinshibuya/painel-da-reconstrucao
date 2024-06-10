@@ -16,6 +16,7 @@ const nextConfig = {
     return config;
   },
   output: "export",
+  trailingSlash: true,
   images: { unoptimized: true },
   basePath: "/especiais/painel-da-reconstrucao",
 };

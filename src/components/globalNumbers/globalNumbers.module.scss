@@ -7,3 +7,9 @@
 .content_block.icon_block {
   align-items: center;
 }
+
+@media (max-width: 480px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}

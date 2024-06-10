@@ -70,6 +70,7 @@ a {
   > main {
     flex: 1;
     padding: 40px 30px;
+    background-color: var(--white-100);
   }
 }
 
@@ -235,8 +236,12 @@ a {
   margin-bottom: 30px;
 
   &.bar_title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 5px;
     margin-top: 30px;
+    width: fit-content;
   }
 }
 
@@ -250,6 +255,7 @@ a {
 .content_title_wrapper {
   display: flex;
   justify-content: space-between;
+  width: fit-content;
 }
 
 .section_content {
@@ -293,15 +299,28 @@ a {
     .bar_label_color {
       width: 10px;
       height: 10px;
+      min-width: 10px;
+      min-height: 10px;
       background-color: var(--gray-400);
       border: 1px solid var(--primary-100);
       border-radius: 50%;
     }
 
     .bar_label {
+      display: inline;
+      gap: 7px;
+      align-items: center;
+      position: relative;
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--gray-600);
+
+      .caption_tooltip {
+        display: inline;
+        float: right;
+        margin-left: 7px;
+        margin-bottom: -2px;
+      }
     }
 
     &.linha_credito {
@@ -353,6 +372,21 @@ a {
       display: flex;
       flex-direction: column;
       gap: 5px;
+
+      &.sub_caption_wrapper {
+        margin-left: 22px;
+
+        .caption_title {
+          h1 {
+            font-size: 0.875rem;
+          }
+        }
+
+        .caption_value {
+          font-size: 1.25rem;
+          text-align: start;
+        }
+      }
 
       &.advertised_value {
         .caption_color {
@@ -457,7 +491,7 @@ a {
 .bar_wrapper {
   position: relative;
   width: calc(100% + 25px);
-  min-width: 380px;
+  // min-width: 380px;
   // max-width: 680px;
   height: 100%;
   min-height: 50px;
@@ -588,5 +622,61 @@ a {
       font-weight: 700;
       min-width: 100px;
     }
+  }
+}
+
+/* Large desktop */
+// @media (min-width: 1200px) { ... }
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .general_value {
+    font-size: 1.125rem;
+  }
+}
+
+/* Landscape phone to portrait tablet */
+// @media (max-width: 767px) { ... }
+
+@media (max-width: 480px) {
+  #app > main {
+    padding: 20px 15px;
+  }
+
+  .content_wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+  }
+
+  .bar_labels_container {
+    flex-direction: column;
+
+    .bar_label_wrapper {
+      align-items: flex-start;
+
+      .bar_label_color {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .bar_labels_container .bar_label_wrapper .bar_label {
+    // max-width: 300px;
+    word-wrap: break-word;
+  }
+
+  // .bar_wrapper {
+  //   position: relative;
+  //   width: calc(100% + 25px);
+  //   min-width: 300px;
+  //   max-width: 300px;
+  // }
+  .general_value {
+    font-size: 1.25rem;
+  }
+
+  .segment_title {
+    font-size: 0.8rem;
   }
 }

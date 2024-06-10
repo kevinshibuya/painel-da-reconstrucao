@@ -46,15 +46,16 @@ export default function GlobalNumbers() {
             separator="."
             decimal=","
             prefix="R$ "
-            suffix=" bilhões"
+            suffix=" bilhão"
             delay={0}
+            decimals={1}
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
             )}
           </CountUp>
         ) : (
-          <p className="general_value">R$ 0 bilhões</p>
+          <p className="general_value">R$ 0 bilhão</p>
         )}
       </div>
       <div

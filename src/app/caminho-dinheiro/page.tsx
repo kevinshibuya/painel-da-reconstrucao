@@ -13,9 +13,7 @@ export default function Page() {
   const [selectedAcaoValue, setSelectedAcaoValue] = selectedAcao;
   var options = { style: "currency", currency: "BRL" };
   var formatter = new Intl.NumberFormat("pt-BR", options);
-
-  // useEffect(() => {}, [acoesGovernoValue]);
-  // console.log(acoesGovernoValue);
+  console.log(acoesGovernoValue);
   return (
     <div className="content_block">
       {acoesGovernoValue

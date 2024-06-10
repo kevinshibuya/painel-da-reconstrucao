@@ -13,14 +13,14 @@ import logoPraCimaRS from "../../../public/logo_pracimars.svg";
 
 const basePath = "/especiais/painel-da-reconstrucao";
 
-export default function Sidemenu() {
+export default function Sidemenu({ isOpen, setIsOpen }: any) {
   const pathname = usePathname();
   const pathNames = pathname.split("/").filter((path) => path);
 
   useEffect(() => {
-    const links = document.querySelectorAll("a");
+    const links: any = document.querySelectorAll("nav a");
 
-    links.forEach((link) => {
+    links.forEach((link: any) => {
       const parsedUrl = new URL(link.href);
       const linkPath = parsedUrl.pathname.replace(basePath, "");
       link.classList.remove(styles.active);
@@ -31,8 +31,14 @@ export default function Sidemenu() {
     });
   }, [pathNames]);
 
+  const handleLinkClicked = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <aside className={styles.container}>
+    <aside
+      className={`${styles.container} ${isOpen ? styles.open : styles.closed}`}
+    >
       <header>
         <img
           src={logoPraCimaRS.src}
@@ -42,7 +48,7 @@ export default function Sidemenu() {
         />
       </header>
       <nav>
-        <Link href="/dados-gerais">
+        <Link onClick={handleLinkClicked} href="/dados-gerais">
           <svg
             width="24"
             height="24"
@@ -64,7 +70,7 @@ export default function Sidemenu() {
           </svg>
           Dados gerais
         </Link>
-        <Link href="/caminho-dinheiro">
+        <Link onClick={handleLinkClicked} href="/caminho-dinheiro">
           <svg
             width="24"
             height="24"
@@ -86,7 +92,7 @@ export default function Sidemenu() {
           </svg>
           Onde o dinheiro é aplicado
         </Link>
-        <Link href="/como-funciona">
+        <Link onClick={handleLinkClicked} href="/como-funciona">
           <svg
             width="24"
             height="24"
@@ -108,7 +114,7 @@ export default function Sidemenu() {
           </svg>
           Como funciona o painel
         </Link>
-        <Link href="/entenda-termos">
+        <Link onClick={handleLinkClicked} href="/entenda-termos">
           <svg
             className={styles.stroke}
             width="24"
@@ -155,7 +161,7 @@ export default function Sidemenu() {
           </svg>
           Entenda os termos utilizados
         </Link>
-        <Link href="/entenda-medidas">
+        <Link onClick={handleLinkClicked} href="/entenda-medidas">
           <svg
             className={styles.stroke}
             width="24"
@@ -202,7 +208,7 @@ export default function Sidemenu() {
           </svg>
           Entenda as medidas anunciadas
         </Link>
-        <Link href="/auxilios-cidadao">
+        <Link onClick={handleLinkClicked} href="/auxilios-cidadao">
           <svg
             className={styles.stroke}
             width="24"
@@ -249,7 +255,7 @@ export default function Sidemenu() {
           </svg>
           Como cidadãos solicitam auxílios
         </Link>
-        <Link href="/estado-recursos">
+        <Link onClick={handleLinkClicked} href="/estado-recursos">
           <svg
             className={styles.stroke}
             width="24"
@@ -338,7 +344,7 @@ export default function Sidemenu() {
           </svg>
           Como Estado e prefeituras acessam recursos
         </Link>
-        <Link href="/empresas-beneficios">
+        <Link onClick={handleLinkClicked} href="/empresas-beneficios">
           <svg
             className={styles.stroke}
             width="24"
@@ -392,7 +398,7 @@ export default function Sidemenu() {
           </svg>
           Como empresas solicitam benefícios
         </Link>
-        {/* <Link href="/calendar">
+        {/* <Link onClick={handleLinkClicked} href="/calendar">
           <svg
             className={styles.stroke}
             width="24"

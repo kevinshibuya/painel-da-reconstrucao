@@ -108,7 +108,7 @@ export function DataProvider({ children }: any) {
         "acao",
         "valorEmpenho"
       );
-      // console.log(uniqueAcoes);
+
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
         estadual: uniqueGovAnunciado[1]?.["anunciado"] / 1000000000 || 0,

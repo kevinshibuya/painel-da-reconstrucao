@@ -20,6 +20,9 @@
 }
 
 .canvas_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   width: 100%;
   // min-width: 300px;

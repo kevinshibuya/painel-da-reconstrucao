@@ -23,7 +23,7 @@ import {
 import { Doughnut } from "react-chartjs-2";
 import CountUp from "react-countup";
 import { useDataContext } from "@/context/dados";
-import { Tooltip } from "@nextui-org/react";
+import { Grid } from "react-loader-spinner";
 
 import styles from "./page.module.scss";
 import tooltip from "../../../public/icons/tooltip_icon.svg";
@@ -39,6 +39,16 @@ ChartJS.register(
   CategoryScale,
   BarElement
 );
+
+function isEmpty(obj: Object) {
+  for (const prop in obj) {
+    if (Object.hasOwn(obj, prop)) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 export default function Page() {
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -85,6 +95,8 @@ export default function Page() {
       },
     ],
   };
+
+  console.log(isEmpty(federalInvestmentValue));
 
   const dataEstadual = {
     labels: [
@@ -466,7 +478,20 @@ export default function Page() {
             </div>
           </div>
           <div className={styles.canvas_wrapper}>
-            <Doughnut data={dataFederal} options={options} />
+            {isEmpty(federalInvestmentValue) ? (
+              <Grid
+                visible={true}
+                height="50"
+                width="50"
+                color="#707070"
+                ariaLabel="grid-loading"
+                radius="12.5"
+                wrapperStyle={{}}
+                wrapperClass="grid-wrapper"
+              />
+            ) : (
+              <Doughnut data={dataFederal} options={options} />
+            )}
           </div>
         </div>
         <h1 className="bar_title section_title">
@@ -478,13 +503,29 @@ export default function Page() {
           />
         </h1>
         <div className="bar_wrapper">
-          <Chart
-            options={apexBarOptions}
-            series={apexBarFederalData}
-            type="bar"
-            height={"100px"}
-            width={"100%"}
-          />
+          {isEmpty(federalInvestmentValue) ? (
+            <Grid
+              visible={true}
+              height="20"
+              width="20"
+              color="#707070"
+              ariaLabel="grid-loading"
+              radius="12.5"
+              wrapperStyle={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              wrapperClass="grid-wrapper"
+            />
+          ) : (
+            <Chart
+              options={apexBarOptions}
+              series={apexBarFederalData}
+              type="bar"
+              height={"100px"}
+              width={"100%"}
+            />
+          )}
         </div>
         <div className="bar_labels_container">
           <div className="bar_label_wrapper linha_credito">
@@ -717,7 +758,20 @@ export default function Page() {
             </div>
           </div>
           <div className={styles.canvas_wrapper}>
-            <Doughnut data={dataEstadual} options={options} />
+            {isEmpty(estadualInvestmentValue) ? (
+              <Grid
+                visible={true}
+                height="50"
+                width="50"
+                color="#707070"
+                ariaLabel="grid-loading"
+                radius="12.5"
+                wrapperStyle={{}}
+                wrapperClass="grid-wrapper"
+              />
+            ) : (
+              <Doughnut data={dataEstadual} options={options} />
+            )}
           </div>
         </div>
         <h1 className="bar_title section_title">
@@ -729,13 +783,29 @@ export default function Page() {
           />
         </h1>
         <div className="bar_wrapper">
-          <Chart
-            options={apexBarOptions}
-            series={apexBarEstadualData}
-            type="bar"
-            height={"100px"}
-            width={"100%"}
-          />
+          {isEmpty(estadualInvestmentValue) ? (
+            <Grid
+              visible={true}
+              height="20"
+              width="20"
+              color="#707070"
+              ariaLabel="grid-loading"
+              radius="12.5"
+              wrapperStyle={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              wrapperClass="grid-wrapper"
+            />
+          ) : (
+            <Chart
+              options={apexBarOptions}
+              series={apexBarEstadualData}
+              type="bar"
+              height={"100px"}
+              width={"100%"}
+            />
+          )}
         </div>
         <div className="bar_labels_container">
           <div className="bar_label_wrapper novos_recursos">

@@ -1,3 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
+import styles from "./page.module.scss";
+import coordinatorIcon from "../../../public/icons/coordinator.png";
+import developerIcon from "../../../public/icons/software-development.png";
+import designerIcon from "../../../public/icons/graphic-designer.png";
+import dataJournalistIcon from "../../../public/icons/scientist.png";
+import journalistIcon from "../../../public/icons/news-admin.png";
+
 export default function Page() {
   return (
     <main className="summary_container">
@@ -44,6 +52,97 @@ export default function Page() {
           com base nos portais, e sempre que houver novos anúncios de medidas.
         </p>
       </div>
+      <h1 className="summary_title">Conheça a equipe</h1>
+      <div className={styles.team_container}>
+        <div className="content_block">
+          <img
+            src={coordinatorIcon.src}
+            alt="Ícone coordenador"
+            width={120}
+            height={120}
+          />
+          <h1 className="summary_subtitle">Leandro Brixius</h1>
+          <p>Coordenador</p>
+          <a
+            href="mailto:leandro.brixius@zerohora.com.br"
+            className={styles.email}
+          >
+            leandro.brixius@zerohora.com.br
+          </a>
+        </div>
+        <div className="content_block">
+          <img
+            src={dataJournalistIcon.src}
+            alt="Ícone repórter de dados"
+            width={120}
+            height={120}
+          />
+          <h1 className="summary_subtitle">Beatriz Coan</h1>
+          <p>Repórter de dados</p>
+          <a
+            href="mailto:beatriz.coan@zerohora.com.br"
+            className={styles.email}
+          >
+            beatriz.coan@zerohora.com.br
+          </a>
+        </div>
+        <div className="content_block">
+          <img
+            src={developerIcon.src}
+            alt="Ícone desenvolvedor"
+            width={120}
+            height={120}
+          />
+          <h1 className="summary_subtitle">Kevin Shibuya</h1>
+          <p>Desenvolvedor</p>
+          <a
+            href="mailto:kevin.borges@gruporbs.com.br"
+            className={styles.email}
+          >
+            kevin.borges@gruporbs.com.br
+          </a>
+        </div>
+        <div className="content_block">
+          <img
+            src={journalistIcon.src}
+            alt="Ícone repórter"
+            width={120}
+            height={120}
+          />
+          <h1 className="summary_subtitle">Mathias Boni</h1>
+          <p>Repórter</p>
+          <a
+            href="mailto:mathias.boni@zerohora.com.br"
+            className={styles.email}
+          >
+            mathias.boni@zerohora.com.br
+          </a>
+        </div>
+        <div className="content_block">
+          <img
+            src={designerIcon.src}
+            alt="Ícone designer"
+            width={120}
+            height={120}
+          />
+          <h1 className="summary_subtitle">Douglas de Menezes</h1>
+          <p>Designer</p>
+          <a
+            href="mailto:douglas.menezes@zerohora.com.br"
+            className={styles.email}
+          >
+            douglas.menezes@zerohora.com.br
+          </a>
+        </div>
+      </div>
+      <a
+        href="https://www.flaticon.com/authors/ultimatearm"
+        title="coordinator, graphic designer, news admin, scientist and software development icons"
+        className={styles.credits}
+      >
+        Ícones de coordenador, repórter de dados, desenvolvedor, repórter e
+        designer criados por ultimatearm - Flaticon
+      </a>
     </main>
   );
 }

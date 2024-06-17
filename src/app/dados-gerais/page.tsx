@@ -24,6 +24,13 @@ import { Doughnut } from "react-chartjs-2";
 import CountUp from "react-countup";
 import { useDataContext } from "@/context/dados";
 import { Grid } from "react-loader-spinner";
+import {
+  getCookies,
+  setCookie,
+  deleteCookie,
+  getCookie,
+  hasCookie,
+} from "cookies-next";
 
 import styles from "./page.module.scss";
 import tooltip from "../../../public/icons/tooltip_icon.svg";
@@ -40,6 +47,20 @@ ChartJS.register(
   BarElement
 );
 
+const steps: any = [
+  {
+    placement: "center",
+    target: "body",
+    content: "Bem vindo ao Painel da Reconstrução! Gostaria de um tour?",
+    disableBeacon: true,
+  },
+  {
+    target: "#globalNumbers",
+    content: "This another awesome feature!",
+    disableBeacon: true,
+  },
+];
+
 function isEmpty(obj: Object) {
   for (const prop in obj) {
     if (Object.hasOwn(obj, prop)) {
@@ -52,6 +73,7 @@ function isEmpty(obj: Object) {
 
 export default function Page() {
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+  const Joyride = dynamic(() => import("react-joyride"), { ssr: false });
   const { data, generalInvestment, federalInvestment, estadualInvestment } =
     useDataContext();
   const [generalInvestmentValue, setGeneralInvestmentValue] = generalInvestment;
@@ -59,7 +81,7 @@ export default function Page() {
   const [estadualInvestmentValue, setEstadualInvestmentValue] =
     estadualInvestment;
   const [dataValue, setDataValue] = data;
-
+  const [tourPainel, setTourPainel] = useState(false);
   const dataFederal = {
     labels: [
       "Promessa restante",
@@ -72,8 +94,7 @@ export default function Page() {
         label: "Valor",
         data: [
           Math.round(
-            (federalInvestmentValue.anunciado -
-              federalInvestmentValue.empenhado) *
+            (federalInvestmentValue.anunciado - federalInvestmentValue.pago) *
               100
           ) / 100,
           // Math.round(
@@ -95,9 +116,6 @@ export default function Page() {
       },
     ],
   };
-
-  console.log(isEmpty(federalInvestmentValue));
-
   const dataEstadual = {
     labels: [
       "Promessa restante",
@@ -110,8 +128,7 @@ export default function Page() {
         label: "Valor",
         data: [
           Math.round(
-            (estadualInvestmentValue.anunciado -
-              estadualInvestmentValue.empenhado) *
+            (estadualInvestmentValue.anunciado - estadualInvestmentValue.pago) *
               100
           ) / 100,
           // Math.round(
@@ -133,7 +150,6 @@ export default function Page() {
       },
     ],
   };
-
   const dataGeral = {
     labels: [
       "Promessa restante",
@@ -146,8 +162,7 @@ export default function Page() {
         label: "Valor",
         data: [
           Math.round(
-            (generalInvestmentValue.anunciado -
-              generalInvestmentValue.empenhado) *
+            (generalInvestmentValue.anunciado - generalInvestmentValue.pago) *
               100
           ) / 100,
           // Math.round(
@@ -169,9 +184,35 @@ export default function Page() {
       },
     ],
   };
-
-  useEffect(() => {}, [data]);
-
+  const apexBarFederalData: any = [
+    {
+      name: "Linhas de crédito",
+      data: [federalInvestmentValue.linhaCredito],
+      color: "#8B0000",
+    },
+    {
+      name: "Recursos novos",
+      data: [federalInvestmentValue.antecipacaoAdiamento],
+      color: "#B8860B",
+    },
+    {
+      name: "Antecipação de benefícios ou adiamento de tributos",
+      data: [federalInvestmentValue.recursosNovos],
+      color: "#8A2BE2",
+    },
+  ];
+  const apexBarEstadualData: any = [
+    {
+      name: "Recursos novos",
+      data: [estadualInvestmentValue.recursosNovos],
+      color: "#B8860B",
+    },
+    {
+      name: "Doação",
+      data: [estadualInvestmentValue.doacao],
+      color: "#008B8B",
+    },
+  ];
   const options = {
     rotation: -90,
     circumference: 180,
@@ -187,7 +228,6 @@ export default function Page() {
       },
     },
   };
-
   const apexBarOptions: any = {
     chart: {
       type: "bar",
@@ -249,42 +289,43 @@ export default function Page() {
       show: false,
     },
   };
+  const handleTour = (state: any) => {
+    if (state.action === "reset") {
+      setCookie("tour_painel", "true");
+    }
+  };
 
-  const apexBarFederalData: any = [
-    {
-      name: "Linhas de crédito",
-      data: [federalInvestmentValue.linhaCredito],
-      color: "#8B0000",
-    },
-    {
-      name: "Recursos novos",
-      data: [federalInvestmentValue.antecipacaoAdiamento],
-      color: "#B8860B",
-    },
-    {
-      name: "Antecipação de benefícios ou adiamento de tributos",
-      data: [federalInvestmentValue.recursosNovos],
-      color: "#8A2BE2",
-    },
-  ];
-
-  const apexBarEstadualData: any = [
-    {
-      name: "Recursos novos",
-      data: [estadualInvestmentValue.recursosNovos],
-      color: "#B8860B",
-    },
-    {
-      name: "Doação",
-      data: [estadualInvestmentValue.doacao],
-      color: "#008B8B",
-    },
-  ];
+  useEffect(() => {
+    if (!hasCookie("tour_painel")) {
+      setTourPainel(true);
+    }
+  }, []);
 
   return (
     <main className={styles.container}>
       <div className="content_block federal_highlight">
         <div className="content_title_wrapper">
+          {tourPainel ? (
+            <Joyride
+              steps={steps}
+              run={true}
+              continuous={true}
+              locale={{
+                back: "Voltar",
+                close: "Fechar",
+                last: "Fechar",
+                next: "Próximo",
+                open: "Começar tour",
+                skip: "Pular",
+              }}
+              showSkipButton={true}
+              showProgress={true}
+              scrollToFirstStep={true}
+              callback={handleTour}
+            />
+          ) : (
+            ""
+          )}
           <h1 className="big_section_title">Federal</h1>
           {/* <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>

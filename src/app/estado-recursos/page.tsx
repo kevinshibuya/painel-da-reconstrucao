@@ -96,7 +96,7 @@ export default function Page() {
       <div className="content_block">
         <p className="summary_subtitle">
           Como Estado e municípios podem solicitar recursos para assistência
-          humanitária a população atingida por desastre
+          humanitária à população atingida por desastre
         </p>
         <p>
           Estado e prefeituras podem solicitar o envio de recursos federais,

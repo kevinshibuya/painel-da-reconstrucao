@@ -12,7 +12,7 @@ export default function GlobalNumbers() {
   const [globalNumbersValue, setGlobalNumbersValue] = globalNumbers;
 
   return (
-    <header className={styles.container}>
+    <header className={styles.container} id="globalNumbers">
       <div className="content_block federal_highlight" id="federalInvestment">
         <h1 className="segment_title">Promessa federal</h1>
         {globalNumbersValue.federal ? (

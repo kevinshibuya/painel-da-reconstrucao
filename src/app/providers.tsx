@@ -2,9 +2,11 @@
 
 import * as React from "react";
 import { NextUIProvider } from "@nextui-org/react";
+
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDataContext } from "../context/dados";
+
 import geral from "../../public/data/geral.json";
 import empenhos from "../../public/data/empenhos.json";
 import liquidadosAndPagos from "../../public/data/liquidadosAndPagos.json";

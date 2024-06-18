@@ -18,6 +18,11 @@ export default function Page() {
     <div className="content_block">
       {acoesGovernoValue
         ? acoesGovernoValue.map((acao: any, index: number) => {
+            const empenhos = (dataValue as any).empenhos.filter(
+              (empenho: any) => acao.codAcao === empenho.codAcao
+            );
+            console.log(acao);
+            console.log(empenhos);
             return (
               <React.Fragment key={index}>
                 <Link

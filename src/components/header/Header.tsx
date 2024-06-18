@@ -10,7 +10,9 @@ export default function Header() {
       <div className={styles.header_content}>
         <div className={styles.header_text}>
           <h1>Painel da Reconstrução</h1>
-          <p>Atualizado em 14/06/2024 às 10:00</p>
+          <time dateTime="2024-06-18T16:00:00.000">
+            Atualizado em 18/06/2024 às 16:00
+          </time>
         </div>
       </div>
       {/* <div className={styles.input_wrapper}>

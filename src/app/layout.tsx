@@ -36,8 +36,9 @@ export default function RootLayout({
         <noscript
           dangerouslySetInnerHTML={{
             __html: `<iframe src="
-https://www.googletagmanager.com/ns.html?id=GTM-5NNQ745"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+              https://www.googletagmanager.com/ns.html?id=GTM-5NNQ745"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            `,
           }}
         />
         <DataProvider>
@@ -45,6 +46,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             <AppContainer>{children}</AppContainer>
           </Providers>
         </DataProvider>
+        {/* <Script
+          src="https://gauchazh-hlg.clicrbs.com.br/especiais/especiais-header/styles.css"
+          strategy="beforeInteractive"
+        />
+        <Script src="https://gauchazh-hlg.clicrbs.com.br/especiais/js/gzh/gzh-especiais-topo-0.0.1.min.js" /> */}
       </body>
     </html>
   );

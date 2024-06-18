@@ -4,7 +4,7 @@
 import GlobalNumbers from "@/components/globalNumbers/GlobalNumbers";
 import Header from "@/components/header/Header";
 import Sidemenu from "@/components/sidemenu/Sidemenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import menuOpen from "../../public/icons/menu_open_icon.svg";
 import menuClose from "../../public/icons/menu_close_icon.svg";

@@ -104,10 +104,12 @@ export function DataProvider({ children }: any) {
         "tipo"
       );
       const uniqueAcoes = groupByUniqueProperty(
-        (data as any).empenhos,
+        (data as any).geral,
         "acao",
-        "valorEmpenho"
+        "anunciado",
+        "codAcao"
       );
+      console.log(uniqueAcoes);
 
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
@@ -127,15 +129,15 @@ export function DataProvider({ children }: any) {
         liquidado: uniqueGovLiquidado[0]?.["liquidado"],
         pago: uniqueGovPago[0]?.["pago"],
         recursosNovos: uniqueTypes.find(
-          (el) => el.governo === "Federal" && el.tipo === "Recursos novos"
+          (el) => el.governo === "federal" && el.tipo === "Recursos novos"
         )?.anunciado,
         antecipacaoAdiamento: uniqueTypes.find(
           (el) =>
-            el.governo === "Federal" &&
+            el.governo === "federal" &&
             el.tipo === "Antecipação de benefícios ou adiamento de tributos"
         )?.anunciado,
         linhaCredito: uniqueTypes.find(
-          (el) => el.governo === "Federal" && el.tipo === "Linha de crédito"
+          (el) => el.governo === "federal" && el.tipo === "Linha de crédito"
         )?.anunciado,
       });
 
@@ -145,10 +147,10 @@ export function DataProvider({ children }: any) {
         liquidado: uniqueGovLiquidado[1]?.["liquidado"],
         pago: uniqueGovPago[1]?.["pago"],
         recursosNovos: uniqueTypes.find(
-          (el) => el.governo === "Estadual" && el.tipo === "Recursos novos"
+          (el) => el.governo === "estadual" && el.tipo === "Recursos novos"
         )?.anunciado,
         doacao: uniqueTypes.find(
-          (el) => el.governo === "Estadual" && el.tipo === "Doação"
+          (el) => el.governo === "estadual" && el.tipo === "Doações"
         )?.anunciado,
       });
 

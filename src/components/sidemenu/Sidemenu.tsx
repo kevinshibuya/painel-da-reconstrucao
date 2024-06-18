@@ -70,7 +70,7 @@ export default function Sidemenu({ isOpen, setIsOpen }: any) {
           </svg>
           Dados gerais
         </Link>
-        <Link onClick={handleLinkClicked} href="/caminho-dinheiro">
+        {/* <Link onClick={handleLinkClicked} href="/caminho-dinheiro">
           <svg
             width="24"
             height="24"
@@ -91,7 +91,7 @@ export default function Sidemenu({ isOpen, setIsOpen }: any) {
             </defs>
           </svg>
           Onde o dinheiro é aplicado
-        </Link>
+        </Link> */}
         <Link onClick={handleLinkClicked} href="/como-funciona">
           <svg
             width="24"

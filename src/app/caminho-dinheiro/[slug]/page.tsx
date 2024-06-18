@@ -8,14 +8,18 @@ export function generateStaticParams() {
   const data = { geral, empenhos, liquidadosAndPagos };
 
   const uniqueAcoes = groupByUniqueProperty(
-    data.empenhos,
+    (data as any).geral,
     "acao",
-    "valorEmpenho"
+    "anunciado",
+    "codAcao"
   );
+  console.log(uniqueAcoes);
 
   return uniqueAcoes.map((acao: any) => ({
     slug: acao.acao.replaceAll(" ", "-"),
-    data: uniqueAcoes,
+    data: (data as any).empenhos.filter(
+      (empenho: any) => acao.codAcao === empenho.codAcao
+    ),
   }));
 }
 

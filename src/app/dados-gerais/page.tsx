@@ -289,23 +289,23 @@ export default function Page() {
       show: false,
     },
   };
-  const handleTour = (state: any) => {
-    if (state.action === "reset") {
-      setCookie("tour_painel", "true");
-    }
-  };
+  // const handleTour = (state: any) => {
+  //   if (state.action === "reset") {
+  //     setCookie("tour_painel", "true");
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!hasCookie("tour_painel")) {
-      setTourPainel(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!hasCookie("tour_painel")) {
+  //     setTourPainel(true);
+  //   }
+  // }, []);
 
   return (
     <main className={styles.container}>
       <div className="content_block federal_highlight">
         <div className="content_title_wrapper">
-          {tourPainel ? (
+          {/* {tourPainel ? (
             <Joyride
               steps={steps}
               run={true}
@@ -325,7 +325,7 @@ export default function Page() {
             />
           ) : (
             ""
-          )}
+          )} */}
           <h1 className="big_section_title">Federal</h1>
           {/* <Dropdown shouldBlockScroll={false}>
             <DropdownTrigger>

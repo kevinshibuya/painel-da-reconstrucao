@@ -41,7 +41,9 @@ export default function Breadcrumb({
         {pathNames.map((link, index) => {
           let href = `/${pathNames.join("/")}`;
           let itemClasses =
-            paths === href ? `${listClasses} ${activeClasses}` : listClasses;
+            paths === `${href}/`
+              ? `${listClasses} ${activeClasses}`
+              : listClasses;
           let itemLink = capitalizeLinks
             ? (link[0].toUpperCase() + link.slice(1, link.length)).replaceAll(
                 "-",

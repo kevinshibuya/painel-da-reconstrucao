@@ -1,15 +1,26 @@
+type GroupedItem = {
+  [key: string]: any;
+  items?: any[];
+  sum?: number;
+};
+
 export default function groupByUniqueProperty(
   array: any[],
-  uniqueProp: string,
-  valueProp: string,
-  additionalUniqueProp?: string
-) {
+  uniqueProps: string[],
+  valueProps: string[],
+  currentLevel: number = 0
+): GroupedItem[] {
+  if (currentLevel >= uniqueProps.length) {
+    return array;
+  }
+
+  const uniqueProp = uniqueProps[currentLevel];
+  const valueProp = valueProps[currentLevel];
+
   const groups = new Map<string, { items: any[]; sum: number }>();
 
   array.forEach((item) => {
-    const uniqueKey = additionalUniqueProp
-      ? `${item[uniqueProp]}-${item[additionalUniqueProp]}`
-      : item[uniqueProp];
+    const uniqueKey = item[uniqueProp];
     const value = item[valueProp];
 
     if (groups.has(uniqueKey)) {
@@ -26,15 +37,16 @@ export default function groupByUniqueProperty(
   });
 
   let groupedItems = Array.from(groups.entries()).map(([key, group]) => {
-    const keys = key.split("-");
-    return additionalUniqueProp
-      ? {
-          [uniqueProp]: keys[0],
-          [additionalUniqueProp]: keys[1],
-          items: group.items,
-          sum: group.sum,
-        }
-      : { [uniqueProp]: key, items: group.items, sum: group.sum };
+    return {
+      [uniqueProp]: key,
+      items: groupByUniqueProperty(
+        group.items,
+        uniqueProps,
+        valueProps,
+        currentLevel + 1
+      ),
+      sum: group.sum,
+    };
   });
 
   groupedItems = groupedItems.sort((a, b) => {

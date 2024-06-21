@@ -3,6 +3,7 @@
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import { useDataContext } from "@/context/dados";
 import groupByUniqueProperty from "@/utils/groupByUniqueProperty";
+import slugify from "@/utils/slugify";
 import {
   Accordion,
   AccordionItem,
@@ -17,7 +18,7 @@ function parseDateString(dateString: string): any {
   return new Date(year, month - 1, day); // Month is 0-based in JavaScript Date
 }
 
-export default function AcaoGoverno(params: any) {
+export default function Empenhos(params: any) {
   const { acoesGoverno } = useDataContext();
   const providerValue = useAccordionProvider({
     allowMultiple: true,
@@ -27,12 +28,11 @@ export default function AcaoGoverno(params: any) {
   const [acoesGovernoValue, setAcoesGovernoValue] = acoesGoverno;
   const [acaoGoverno, setAcaoGoverno] = useState([] as any);
   const [loading, setLoading] = useState(true);
-  // Destructuring `toggle` and `toggleAll` from `providerValue`
 
   useEffect(() => {
     if (acoesGovernoValue && acoesGovernoValue.length > 0) {
       const filteredAcoes = acoesGovernoValue.filter(
-        (acao: any) => params.slug.replaceAll("-", " ") === acao.acao
+        (acao: any) => params.slug === slugify(acao.acaoSimples)
       );
       const sortedAcoes = filteredAcoes[0].items.sort(
         (a: any, b: any) =>
@@ -40,7 +40,7 @@ export default function AcaoGoverno(params: any) {
       );
 
       setAcaoGoverno(sortedAcoes);
-      setLoading(false); // Set loading to false when data is ready
+      setLoading(false);
     }
   }, [acoesGovernoValue, params]);
 
@@ -63,7 +63,6 @@ function Items({ currentItems, providerValue }: any) {
   const { data } = useDataContext();
   const [dataValue, setDataValue] = data;
   const [matchingEmpenho, setMatchingEmpenho] = useState([] as any);
-  console.log(currentItems);
   var options = { style: "currency", currency: "BRL" };
   var formatter = new Intl.NumberFormat("pt-BR", options);
 

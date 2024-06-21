@@ -1,6 +1,5 @@
 "use client";
 
-import classNames from "classnames";
 import styles from "./globalNumbers.module.scss";
 import Image from "next/image";
 import { useDataContext } from "@/context/dados";
@@ -25,6 +24,7 @@ export default function GlobalNumbers() {
             prefix="R$ "
             suffix=" bilhões"
             delay={0}
+            decimals={1}
           >
             {({ countUpRef }) => (
               <span ref={countUpRef} className="general_value" />
@@ -46,7 +46,7 @@ export default function GlobalNumbers() {
             separator="."
             decimal=","
             prefix="R$ "
-            suffix=" bilhão"
+            suffix=" bilhões"
             delay={0}
             decimals={1}
           >
@@ -55,7 +55,7 @@ export default function GlobalNumbers() {
             )}
           </CountUp>
         ) : (
-          <p className="general_value">R$ 0 bilhão</p>
+          <p className="general_value">R$ 0 bilhões</p>
         )}
       </div>
       <div
@@ -76,6 +76,7 @@ export default function GlobalNumbers() {
               prefix="R$ "
               suffix=" bilhões"
               delay={0}
+              decimals={1}
             >
               {({ countUpRef }) => (
                 <span ref={countUpRef} className="general_value" />

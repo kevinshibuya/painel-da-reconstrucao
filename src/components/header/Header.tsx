@@ -10,8 +10,8 @@ export default function Header() {
       <div className={styles.header_content}>
         <div className={styles.header_text}>
           <h1>Painel da Reconstrução</h1>
-          <time dateTime="2024-06-18T16:00:00.000">
-            Atualizado em 18/06/2024 às 16:00
+          <time dateTime="2024-06-21T15:30:00.000">
+            Atualizado em 21/06/2024 às 15:30
           </time>
         </div>
       </div>

@@ -2,9 +2,7 @@
 
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import styles from "./page.module.scss";
-import { useDataContext } from "@/context/dados";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Layout({
   children,
@@ -13,18 +11,22 @@ export default function Layout({
 }>) {
   const paths = usePathname();
   const pathNames = paths.split("/").filter((path) => path);
-  const { selectedAcao } = useDataContext();
-  const [selectedAcaoValue, setSelectedAcaoValue] = selectedAcao;
-
-  useEffect(() => {}, [selectedAcaoValue]);
+  const handleSwitch = (param: any) => {
+    switch (pathNames.length) {
+      case 1:
+        return "Segmentos";
+      case 2:
+        return "Ações do governo";
+      case 3:
+        return "Empenhos";
+    }
+  };
 
   return (
     <main className={styles.container}>
-      <h1 className="big_section_title">
-        {pathNames.length === 1 ? "Ações do governo" : "Empenhos"}
-      </h1>
+      <h1 className="big_section_title">{handleSwitch(pathNames.length)}</h1>
       <Breadcrumb
-        homeElement={"Ações do governo"}
+        homeElement={"Segmentos"}
         separator={<span> / </span>}
         activeClasses="active_breadcrumb"
         containerClasses="breadcrumb_container"

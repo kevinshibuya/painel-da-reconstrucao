@@ -73,7 +73,7 @@ export function DataProvider({ children }: any) {
     pago: number;
   }>({} as any);
   const [acoesGoverno, setAcoesGoverno] = useState([] as any);
-  const [selectedAcao, setSelectedAcao] = useState("");
+  const [segmentosGoverno, setSegmentosGoverno] = useState([] as any);
 
   useEffect(() => {
     if ((data as any).geral) {
@@ -103,13 +103,17 @@ export function DataProvider({ children }: any) {
         "anunciado",
         "tipo"
       );
-      const uniqueAcoes = groupByUniqueProperty(
+      // const uniqueAcoes = groupByUniqueProperty(
+      //   (data as any).empenhos,
+      //   "acaoSimples",
+      //   "valorEmpenho",
+      //   "codAcao"
+      // );
+      const uniqueSegmentos = groupByUniqueProperty(
         (data as any).geral,
-        "acao",
-        "anunciado",
-        "codAcao"
+        ["segmento", "acaoSimples"],
+        ["anunciado", "anunciado"]
       );
-      console.log(uniqueAcoes);
 
       setGlobalNumbers({
         federal: uniqueGovAnunciado[0]?.["anunciado"] / 1000000000 || 0,
@@ -167,7 +171,8 @@ export function DataProvider({ children }: any) {
         pago: uniqueGovPago[0]?.["pago"] + uniqueGovPago[1]?.["pago"],
       });
 
-      setAcoesGoverno(uniqueAcoes);
+      // setAcoesGoverno(uniqueAcoes);
+      setSegmentosGoverno(uniqueSegmentos);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [(data as any).geral]);
@@ -181,7 +186,7 @@ export function DataProvider({ children }: any) {
         federalInvestment: [federalInvestment, setFederalInvestment],
         estadualInvestment: [estadualInvestment, setEstadualInvestment],
         acoesGoverno: [acoesGoverno, setAcoesGoverno],
-        selectedAcao: [selectedAcao, setSelectedAcao],
+        segmentosGoverno: [segmentosGoverno, setSegmentosGoverno],
       }}
     >
       {children}
